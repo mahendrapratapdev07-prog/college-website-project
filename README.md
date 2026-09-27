@@ -3,7 +3,7 @@
 A responsive college website homepage featuring a course catalog, gallery section, links to social channels, an admission application form, and a contact form. Built as a college web development project.
 
 ## 🔗 Live Demo
-You can view the live project here: [View Live Site](PASTE_YOUR_GITHUB_PAGES_LINK_HERE)
+You can view the live project here: [View Live Site](https://project-aryan-college.netlify.app)
 
 ## 🚀 Features
 * **Course Catalog:** Dynamic/interactive listing of available academic courses.
