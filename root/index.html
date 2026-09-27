@@ -1,0 +1,1022 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<!-- This site is hosted on Netlify. Anyone can build and deploy a site
+     like this one for free: https://netlify.new/?utm_campaign=loops&utm_source=ai-legible&utm_medium=owned&utm_content=comment&utm_id=b3506d3d-7f4a-4ad5-ba2c-9fa04f5948e9
+     Netlify hosting facts for this site: static/SSR served via Netlify Edge. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aryan College | Premium 3D Redesign</title>
+  <meta name="description" content="A premium, modern 3D homepage redesign for Aryan College, Ajmer.">
+  <style>
+    :root{
+      --ink:#17171a;--muted:#696970;--soft:#f5f5f7;--white:#fff;--blue:#006edb;--teal:#16766b;--plum:#593f67;--gold:#b7772c;--line:rgba(0,0,0,.1);--shadow:0 26px 80px rgba(0,0,0,.13);
+      --neon-blue:#4d9cff;--neon-cyan:#00f0ff;--neon-purple:#b983ff;--neon-gold:#ffd36e;
+      --depth-1:0 1px 0 rgba(0,0,0,.1);--depth-2:0 2px 0 rgba(0,0,0,.12);--depth-3:0 3px 0 rgba(0,0,0,.14);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--soft);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;letter-spacing:0;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    img{display:block;width:100%;height:100%;object-fit:cover}
+
+    /* ---------- Preloader ---------- */
+    .preloader{position:fixed;inset:0;background:#050507;display:grid;place-items:center;z-index:10000;transition:opacity .8s ease,visibility .8s ease}
+    .preloader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+    .preloader-ring{width:120px;height:120px;border-radius:50%;border:3px solid transparent;border-top-color:var(--neon-cyan);border-right-color:var(--neon-purple);border-bottom-color:var(--blue);animation:preloaderSpin 1.5s linear infinite;box-shadow:0 0 60px rgba(0,240,255,.2),inset 0 0 40px rgba(0,110,219,.1)}
+    .preloader-logo{position:absolute;font-size:22px;font-weight:800;color:#fff;letter-spacing:2px;animation:preloaderPulse 1.5s ease-in-out infinite}
+    @keyframes preloaderSpin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+    @keyframes preloaderPulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.1)}}
+
+    /* ---------- 3D Scene Utilities ---------- */
+    .perspective{perspective:1200px;perspective-origin:50% 50%}
+    .preserve{transform-style:preserve-3d}
+    .gpu{will-change:transform,opacity;backface-visibility:hidden}
+
+    /* ---------- Progress Bar ---------- */
+    .progress-bar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--blue),var(--neon-cyan),var(--neon-purple));z-index:80;box-shadow:0 0 18px rgba(0,113,227,.45);transition:width .1s linear}
+
+    /* ---------- Navigation ---------- */
+    .nav{position:sticky;top:0;z-index:50;background:rgba(250,250,252,.82);border-bottom:1px solid rgba(0,0,0,.08);backdrop-filter:saturate(180%) blur(22px);transition:transform .4s ease,box-shadow .4s ease}
+    .nav.hide{transform:translateY(-100%)}
+    .nav.scrolled{box-shadow:0 10px 40px rgba(0,0,0,.08)}
+    .nav-inner{width:min(1180px,calc(100% - 32px));height:54px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:22px}
+    .brand{font-size:14px;font-weight:750;white-space:nowrap;transition:transform .3s ease;text-transform:uppercase;letter-spacing:1px}
+    .brand:hover{transform:scale(1.05) rotateX(10deg)}
+    .links{display:flex;align-items:center;gap:24px;font-size:12px;color:rgba(29,29,31,.84)}
+    .links a{white-space:nowrap;position:relative;transition:transform .25s ease,color .25s ease}
+    .links a::after{content:"";position:absolute;bottom:-4px;left:50%;width:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--neon-cyan));transition:width .3s ease,left .3s ease;border-radius:2px}
+    .links a:hover{transform:translateY(-2px);color:var(--blue)}
+    .links a:hover::after{width:100%;left:0}
+    .links a.active{color:var(--blue);font-weight:700}
+    .nav-pill{padding:7px 13px;border-radius:999px;color:#fff;background:var(--blue);font-weight:650;transition:transform .25s ease,box-shadow .25s ease,background .25s ease}
+    .nav-pill:hover{transform:translateY(-2px) scale(1.05);box-shadow:0 8px 24px rgba(0,110,219,.35);background:linear-gradient(135deg,var(--blue),var(--neon-cyan))}
+    .erp-pill{padding:7px 12px;border-radius:999px;background:linear-gradient(135deg,#ff7a18,#ff4d6d 45%,#7b61ff);color:#fff;font-weight:700;box-shadow:0 8px 20px rgba(123,97,255,.25);transition:transform .25s ease,box-shadow .25s ease}
+    .erp-pill:hover{transform:translateY(-2px) scale(1.05);box-shadow:0 12px 28px rgba(123,97,255,.4)}
+
+    /* ---------- Hero ---------- */
+    .hero{position:relative;min-height:calc(100vh - 54px);overflow:hidden;background:#050507;color:#fff;perspective:1500px}
+    .hero-scene{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .1s ease-out}
+    .hero-media-layer{position:absolute;inset:0;transform:translateZ(-50px) scale(1.04);background:linear-gradient(90deg,rgba(0,0,0,.78) 0%,rgba(0,0,0,.34) 45%,rgba(0,0,0,.1) 100%),url("https://aryancollege.in/wp-content/uploads/2022/03/IMG_0383.jpg") center/cover;animation:heroZoom 14s ease-in-out infinite alternate}
+    .hero-sheen{position:absolute;inset:-30%;background:linear-gradient(115deg,transparent 36%,rgba(255,255,255,.16) 47%,transparent 58%);animation:sheen 8s ease-in-out infinite;transform:translateZ(80px);pointer-events:none}
+    .hero-particles{position:absolute;inset:0;transform:translateZ(120px);pointer-events:none;z-index:1}
+    .hero-vignette{position:absolute;inset:0;background:radial-gradient(circle at center,transparent 30%,rgba(0,0,0,.65) 100%);transform:translateZ(60px);pointer-events:none;z-index:2}
+    .hero-content{position:relative;z-index:3;width:min(1180px,calc(100% - 32px));min-height:calc(100vh - 54px);margin:auto;display:grid;align-content:center;padding:78px 0 88px;transform-style:preserve-3d}
+    .kicker{margin:0 0 18px;color:rgba(255,255,255,.74);font-size:18px;font-weight:650;transform:translateZ(40px);letter-spacing:2px;text-transform:uppercase}
+    .hero h1{max-width:920px;margin:0;font-size:clamp(36px,6vw,84px);line-height:1;letter-spacing:-.02em;transform:translateZ(60px);text-shadow:0 30px 60px rgba(0,0,0,.45)}
+    .hero-headline{display:inline-block;transform-style:preserve-3d}
+    .hero-headline .word{display:inline-block;margin-right:.28em;transform-style:preserve-3d;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+    .hero-headline .word:hover{transform:translateZ(30px) rotateX(8deg) scale(1.05)}
+    .hero-headline .char{display:inline-block;transform-style:preserve-3d;transition:transform .2s ease,color .2s ease}
+    .hero-headline .char:hover{transform:translateZ(20px) rotateY(15deg);color:var(--neon-cyan)}
+    .hero-copy{max-width:690px;margin:26px 0 0;color:rgba(255,255,255,.78);font-size:clamp(21px,2.7vw,31px);line-height:1.25;font-weight:520;transform:translateZ(40px)}
+    .actions{display:flex;flex-wrap:wrap;gap:13px;margin-top:32px;transform:translateZ(50px)}
+    .btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 22px;border-radius:999px;border:1px solid rgba(255,255,255,.34);font-size:16px;font-weight:650;transition:transform .24s ease,box-shadow .24s ease,background .24s ease;transform-style:preserve-3d;cursor:pointer}
+    .btn::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent,rgba(255,255,255,.4),transparent);transform:translateX(-120%);transition:transform .58s ease}
+    .btn:hover{transform:translateY(-3px) scale(1.03) rotateX(5deg);box-shadow:0 18px 40px rgba(0,0,0,.18)}
+    .btn:hover::after{transform:translateX(120%)}
+    .btn:active{transform:translateY(-1px) scale(.98)}
+    .btn.primary{background:#fff;color:#111;border-color:#fff}
+    .btn.primary:hover{box-shadow:0 18px 40px rgba(255,255,255,.25)}
+    .btn.blue{background:var(--blue);color:#fff;border-color:var(--blue)}
+    .btn.blue:hover{background:linear-gradient(135deg,var(--blue),var(--neon-cyan));box-shadow:0 18px 40px rgba(0,110,219,.35)}
+    .call-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 18px;border-radius:999px;background:linear-gradient(135deg,#0f172a,#2563eb);color:#fff;border:1px solid rgba(255,255,255,.12);box-shadow:0 12px 28px rgba(37,99,235,.25);transition:transform .25s ease,box-shadow .25s ease}
+    .call-btn:hover{transform:translateY(-3px) scale(1.03) rotateX(5deg);box-shadow:0 18px 40px rgba(37,99,235,.4)}
+    .hero-panel{position:absolute;right:calc((100% - min(1180px,calc(100% - 32px)))/2);bottom:42px;z-index:5;width:min(410px,calc(100% - 32px));padding:24px;border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.12);backdrop-filter:blur(22px);border-radius:24px;box-shadow:0 20px 50px rgba(0,0,0,.24);transform:translateZ(100px);transform-style:preserve-3d;animation:floatPanel 5s ease-in-out infinite alternate,glassShine 6s ease-in-out infinite}
+    .hero-panel strong{display:block;font-size:20px;margin-bottom:6px;font-weight:750;letter-spacing:-.01em}
+    .hero-panel span{display:block;color:rgba(255,255,255,.97);font-size:15px;line-height:1.75;font-weight:500}
+
+    /* ---------- Floating 3D Orbs ---------- */
+    .orb{position:absolute;border-radius:50%;filter:blur(60px);opacity:.35;pointer-events:none;z-index:1;animation:orbFloat 20s ease-in-out infinite alternate}
+    .orb-1{width:380px;height:380px;background:var(--neon-blue);top:10%;left:-5%;animation-delay:0s}
+    .orb-2{width:300px;height:300px;background:var(--neon-purple);top:40%;right:-5%;animation-delay:-7s}
+    .orb-3{width:260px;height:260px;background:var(--neon-cyan);bottom:5%;left:20%;animation-delay:-14s}
+
+    /* ---------- Morphing Blob ---------- */
+    .blob-wrap{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+    .blob{position:absolute;width:500px;height:500px;opacity:.25;filter:blur(50px);animation:blobMorph 20s ease-in-out infinite alternate}
+    .blob-1{background:var(--neon-blue);top:-10%;left:-10%;animation-delay:0s}
+    .blob-2{background:var(--neon-purple);bottom:-10%;right:-10%;animation-delay:-7s}
+    .blob-3{background:var(--neon-cyan);top:40%;left:30%;animation-delay:-14s}
+    @keyframes blobMorph{0%{border-radius:60% 40% 30% 70% / 60% 30% 70% 40%;transform:rotate(0deg) scale(1)}100%{border-radius:30% 60% 70% 40% / 50% 60% 30% 60%;transform:rotate(45deg) scale(1.2)}}
+
+    /* ---------- Quick Links ---------- */
+    .quick{width:min(1180px,calc(100% - 32px));margin:40px auto 34px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;perspective:1000px}
+    .quick a{position:relative;min-height:104px;padding:22px;border-radius:16px;background:#fff;border:1px solid rgba(0,0,0,.07);box-shadow:0 18px 55px rgba(0,0,0,.07);display:flex;flex-direction:column;justify-content:space-between;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease;transform-style:preserve-3d;overflow:hidden}
+    .quick a::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,.4),transparent 60%);transform:translateX(-100%);transition:transform .6s ease}
+    .quick a:hover{transform:translateY(-10px) translateZ(30px) rotateX(5deg);box-shadow:var(--shadow)}
+    .quick a:hover::before{transform:translateX(100%)}
+    .quick b{font-size:18px;transform:translateZ(15px)}
+    .quick span{font-size:14px;color:var(--muted);line-height:1.3;transform:translateZ(10px)}
+
+    /* ---------- Sections ---------- */
+    section{width:min(1180px,calc(100% - 32px));margin:0 auto 34px}
+    .section-head{max-width:820px;margin:auto;text-align:center;padding:66px 0 30px;perspective:1000px}
+    .section-head h2{margin:0;font-size:clamp(38px,5.7vw,74px);line-height:.98;transform:translateZ(30px)}
+    .section-head p{margin:18px auto 0;color:var(--muted);font-size:clamp(19px,2.3vw,26px);line-height:1.25;font-weight:520;transform:translateZ(20px)}
+
+    /* ---------- Feature ---------- */
+    .feature{display:grid;grid-template-columns:1.05fr .95fr;min-height:650px;background:#fff;border:1px solid rgba(0,0,0,.07);overflow:hidden;border-radius:24px;box-shadow:0 30px 80px rgba(0,0,0,.08);transform-style:preserve-3d;transition:transform .5s ease,box-shadow .5s ease}
+    .feature:hover{transform:translateZ(20px) rotateX(1deg);box-shadow:0 40px 100px rgba(0,0,0,.12)}
+    .feature-copy{padding:clamp(34px,6vw,76px);display:flex;flex-direction:column;justify-content:center}
+    .feature-copy h2{margin:0;font-size:clamp(38px,5.4vw,76px);line-height:.98}
+    .feature-copy p{margin:20px 0 0;color:var(--muted);font-size:22px;line-height:1.3}
+    .feature-media{position:relative;min-height:560px;background:url("https://aryancollege.in/wp-content/uploads/2022/03/DSC0454.jpg") center/cover;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+    .feature-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(0,0,0,.25) 100%);pointer-events:none}
+
+    /* ---------- Metrics ---------- */
+    .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.06);perspective:1000px}
+    .metric{position:relative;min-height:188px;background:#fff;padding:26px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;transition:transform .35s ease,box-shadow .35s ease;background:linear-gradient(180deg,#fff 0%,#fafafa 100%);transform-style:preserve-3d}
+    .metric::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,rgba(77,156,255,.08),transparent 60%);transform:translateX(-100%);transition:transform .6s ease}
+    .metric:hover{transform:translateY(-8px) translateZ(25px) rotateX(5deg);box-shadow:0 20px 50px rgba(0,0,0,.1);z-index:2}
+    .metric:hover::before{transform:translateX(100%)}
+    .metric strong{font-size:clamp(38px,5vw,60px);line-height:1;background:linear-gradient(135deg,var(--ink),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .metric span{margin-top:9px;color:var(--muted);font-size:14px;font-weight:700}
+
+    /* ---------- Cards ---------- */
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;perspective:1000px}
+    .card{position:relative;min-height:410px;padding:32px;border-radius:24px;background:#fff;border:1px solid rgba(0,0,0,.07);display:flex;flex-direction:column;justify-content:space-between;transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s ease;transform-style:preserve-3d;overflow:hidden}
+    .card::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,.5),transparent 60%);transform:translateX(-100%);transition:transform .7s ease}
+    .card:hover{transform:translateY(-12px) translateZ(40px) rotateX(4deg);box-shadow:0 30px 70px rgba(0,0,0,.14)}
+    .card:hover::before{transform:translateX(100%)}
+    .card:nth-child(2){background:linear-gradient(180deg,#eef7f4 0%,#e0f2eb 100%)}
+    .card:nth-child(3){background:linear-gradient(180deg,#fbf3ea 0%,#f5e6d3 100%)}
+    .card h3{margin:0;font-size:34px;line-height:1.03;transform:translateZ(20px)}
+    .card p{margin:16px 0 0;color:var(--muted);font-size:19px;line-height:1.35;transform:translateZ(10px)}
+    .card span{color:var(--blue);font-size:17px;font-weight:700;transform:translateZ(15px)}
+
+    /* ---------- 3D Flip Cards ---------- */
+    .flip-card{perspective:1000px;min-height:410px}
+    .flip-card-inner{position:relative;width:100%;height:100%;transition:transform .8s cubic-bezier(.2,.8,.2,1);transform-style:preserve-3d}
+    .flip-card:hover .flip-card-inner{transform:rotateY(180deg)}
+    .flip-card-front,.flip-card-back{position:absolute;inset:0;-webkit-backface-visibility:hidden;backface-visibility:hidden;border-radius:24px;padding:32px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 20px 60px rgba(0,0,0,.08);border:1px solid rgba(0,0,0,.07)}
+    .flip-card-front{background:#fff}
+    .flip-card-back{background:linear-gradient(135deg,var(--blue),var(--teal));color:#fff;transform:rotateY(180deg);align-items:center;text-align:center}
+    .flip-card-back h3{margin:0;font-size:32px}
+    .flip-card-back p{font-size:18px;opacity:.9}
+    .flip-icon{font-size:48px;margin-bottom:16px;animation:iconFloat 3s ease-in-out infinite}
+    @keyframes iconFloat{0%,100%{transform:translateY(0) rotateY(0)}50%{transform:translateY(-10px) rotateY(10deg)}}
+
+    /* ---------- Story ---------- */
+    .story{display:grid;grid-template-columns:.9fr 1.1fr;gap:14px;perspective:1000px}
+    .story-photo{position:relative;min-height:560px;border-radius:24px;background:linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.62)),url("https://aryancollege.in/wp-content/uploads/2022/03/IMG_6818.jpg") center/cover;color:#fff;padding:42px;display:flex;flex-direction:column;justify-content:flex-end;transform-style:preserve-3d;transition:transform .5s ease,box-shadow .5s ease;box-shadow:0 30px 80px rgba(0,0,0,.12);overflow:hidden}
+    .story-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(45deg,transparent 60%,rgba(255,255,255,.08) 100%);pointer-events:none}
+    .story-photo:hover{transform:translateZ(30px) rotateY(-2deg);box-shadow:0 40px 100px rgba(0,0,0,.18)}
+    .story-photo h2,.story-copy h2{margin:0;font-size:clamp(34px,4.8vw,60px);line-height:1}
+    .story-photo p,.story-copy p{margin:16px 0 0;font-size:21px;line-height:1.3}
+    .story-photo p{color:rgba(255,255,255,.8)}
+    .story-copy{position:relative;min-height:560px;border-radius:24px;background:#fff;padding:42px;border:1px solid rgba(0,0,0,.07);display:flex;flex-direction:column;justify-content:space-between;transform-style:preserve-3d;transition:transform .5s ease,box-shadow .5s ease;box-shadow:0 30px 80px rgba(0,0,0,.08)}
+    .story-copy:hover{transform:translateZ(30px) rotateY(2deg);box-shadow:0 40px 100px rgba(0,0,0,.12)}
+    .journey{display:grid;gap:12px;margin-top:30px}
+    .step{position:relative;display:grid;grid-template-columns:58px 1fr;gap:18px;align-items:start;padding:18px;border-radius:16px;background:#f5f5f7;transition:transform .3s ease,box-shadow .3s ease;transform-style:preserve-3d;overflow:hidden}
+    .step:hover{transform:translateX(8px) translateZ(15px);box-shadow:0 12px 30px rgba(0,0,0,.08)}
+    .step b{width:44px;height:44px;border-radius:999px;background:#111;color:#fff;display:grid;place-items:center;transition:transform .3s ease,background .3s ease}
+    .step:hover b{transform:scale(1.1) rotateY(180deg);background:var(--blue)}
+    .step h3{margin:0;font-size:20px}
+    .step p{margin:7px 0 0;color:var(--muted);font-size:16px}
+
+    /* ---------- Dark Stage ---------- */
+    .dark-stage{position:relative;min-height:650px;padding:clamp(36px,7vw,82px);background:linear-gradient(90deg,rgba(0,0,0,.86),rgba(0,0,0,.14)),url("https://aryancollege.in/wp-content/uploads/2022/03/DSC0545.jpg") center/cover;color:#fff;display:flex;flex-direction:column;justify-content:center;border-radius:24px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.25);transform-style:preserve-3d;transition:transform .5s ease}
+    .dark-stage:hover{transform:translateZ(20px) rotateX(1deg)}
+    .dark-stage::before{content:"";position:absolute;inset:-50%;background:conic-gradient(from 0deg,transparent 0deg,rgba(77,156,255,.08) 60deg,transparent 120deg);animation:rotateConic 12s linear infinite;pointer-events:none}
+    .dark-stage h2{position:relative;z-index:2;max-width:760px;margin:0;font-size:clamp(42px,6vw,84px);line-height:.97;transform:translateZ(40px);text-shadow:0 20px 40px rgba(0,0,0,.5)}
+    .dark-stage p{position:relative;z-index:2;max-width:620px;margin:20px 0 0;color:rgba(255,255,255,.76);font-size:23px;line-height:1.3;transform:translateZ(30px)}
+
+    /* ---------- Gallery 3D Carousel ---------- */
+    .gallery-stage{perspective:1200px;padding:40px 0;overflow:hidden}
+    .gallery-carousel{position:relative;height:420px;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+    .gallery-item{position:absolute;left:50%;top:50%;width:320px;height:240px;margin:-120px 0 0 -160px;border-radius:24px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.2);transition:transform .5s ease,box-shadow .5s ease;cursor:pointer;transform-style:preserve-3d}
+    .gallery-item img{transition:transform .6s ease}
+    .gallery-item:hover img{transform:scale(1.1)}
+    .gallery-controls{display:flex;justify-content:center;gap:12px;margin-top:30px}
+    .gallery-dot{width:12px;height:12px;border-radius:50%;background:rgba(0,0,0,.2);cursor:pointer;transition:transform .25s ease,background .25s ease}
+    .gallery-dot.active{background:var(--blue);transform:scale(1.3)}
+    .gallery-dot:hover{transform:scale(1.3)}
+    .gallery-nav{width:44px;height:44px;border-radius:50%;border:1px solid rgba(0,0,0,.1);background:#fff;display:grid;place-items:center;cursor:pointer;transition:transform .25s ease,box-shadow .25s ease}
+    .gallery-nav:hover{transform:scale(1.1);box-shadow:0 10px 30px rgba(0,0,0,.1)}
+
+    /* ---------- Contact ---------- */
+    .contact{display:grid;grid-template-columns:.85fr 1.15fr;gap:14px;perspective:1000px}
+    .contact-card{position:relative;border-radius:24px;background:#fff;border:1px solid rgba(0,0,0,.07);padding:36px;transition:transform .4s ease,box-shadow .4s ease;transform-style:preserve-3d;box-shadow:0 20px 60px rgba(0,0,0,.06)}
+    .contact-card:hover{transform:translateZ(30px) rotateX(2deg);box-shadow:0 30px 80px rgba(0,0,0,.1)}
+    .contact-card h2{margin:0;font-size:clamp(34px,4.7vw,58px);line-height:1}
+    .contact-card p{margin:14px 0 0;color:var(--muted);font-size:20px;line-height:1.35}
+    .social-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:26px}
+    .social-grid a{position:relative;min-height:78px;border-radius:16px;background:#f5f5f7;border:1px solid rgba(0,0,0,.07);display:grid;place-items:center;text-align:center;font-weight:750;transition:transform .35s ease,box-shadow .35s ease;transform-style:preserve-3d;overflow:hidden}
+    .social-grid a::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,.4),transparent 60%);transform:translateX(-100%);transition:transform .6s ease}
+    .social-grid a:hover{transform:translateY(-6px) translateZ(25px) rotateX(5deg);box-shadow:0 20px 45px rgba(0,0,0,.1)}
+    .social-grid a:hover::before{transform:translateX(100%)}
+    .social-grid .whatsapp{background:#128c7e;color:#fff}
+    .social-grid .call{background:#111;color:#fff}
+    .social-grid .instagram{background:linear-gradient(45deg,#f58529,#dd2a7b,#8134af,#515bd4);color:#fff}
+    .social-grid .facebook{background:#1877f2;color:#fff}
+    .social-grid .youtube{background:#ff0000;color:#fff}
+    .social-grid .erp{background:linear-gradient(135deg,#ff7a18,#ff4d6d 45%,#7b61ff);color:#fff}
+
+    /* ---------- Final CTA ---------- */
+    .final-cta{position:relative;min-height:430px;padding:44px 24px;border-radius:24px;background:linear-gradient(135deg,rgba(0,110,219,.96),rgba(22,118,107,.92)),url("https://aryancollege.in/wp-content/uploads/2022/03/DSC0369.jpg") center/cover;color:#fff;display:grid;place-items:center;text-align:center;overflow:hidden;box-shadow:0 30px 80px rgba(0,110,219,.3);transform-style:preserve-3d;transition:transform .5s ease}
+    .final-cta:hover{transform:translateZ(20px) rotateX(1deg)}
+    .final-cta::before{content:"";position:absolute;inset:-100%;background:radial-gradient(circle,rgba(255,255,255,.15) 0%,transparent 60%);animation:ctaPulse 8s ease-in-out infinite;pointer-events:none}
+    .final-cta h2{position:relative;z-index:2;margin:0;font-size:clamp(42px,6vw,84px);line-height:.98;transform:translateZ(40px);text-shadow:0 20px 40px rgba(0,0,0,.3)}
+    .final-cta p{position:relative;z-index:2;max-width:680px;margin:18px auto 0;color:rgba(255,255,255,.82);font-size:23px;line-height:1.28;transform:translateZ(30px)}
+
+    /* ---------- Footer ---------- */
+    footer{width:min(1180px,calc(100% - 32px));margin:auto;padding:26px 0 44px;color:var(--muted);font-size:12px;line-height:1.5;border-top:1px solid rgba(0,0,0,.12);display:flex;justify-content:space-between;gap:24px}
+    footer a{transition:color .25s ease,transform .25s ease;display:inline-block}
+    footer a:hover{color:var(--blue);transform:translateY(-2px)}
+
+    /* ---------- Float Buttons ---------- */
+    .float{position:fixed;right:18px;bottom:18px;z-index:60;display:flex;gap:10px;perspective:500px}
+    .float a{position:relative;min-height:46px;padding:0 18px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:750;box-shadow:0 16px 38px rgba(0,0,0,.2);animation:float 3.2s ease-in-out infinite;transition:transform .25s ease;transform-style:preserve-3d;cursor:pointer}
+    .float a:hover{transform:translateY(-4px) translateZ(20px) scale(1.05);animation-play-state:paused}
+    .float .whatsapp{background:#128c7e;color:#fff}
+    .float .call{background:#111;color:#fff;animation-delay:.35s}
+
+    /* ---------- 3D Reveal Animations ---------- */
+    .reveal{opacity:0;transform:translateY(50px) rotateX(15deg);filter:blur(10px);transition:opacity 1s ease,transform 1s cubic-bezier(.2,.8,.2,1),filter 1s ease;transform-style:preserve-3d}
+    .reveal.visible{opacity:1;transform:none;filter:none}
+    .delay-1{transition-delay:.08s}
+    .delay-2{transition-delay:.16s}
+    .delay-3{transition-delay:.24s}
+    .delay-4{transition-delay:.32s}
+    .delay-5{transition-delay:.4s}
+
+    /* ---------- Holographic Effect ---------- */
+    .holo{position:relative;overflow:hidden}
+    .holo::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.25),transparent 60%);transform:translateX(-100%) rotate(15deg);transition:transform .8s ease;pointer-events:none}
+    .holo:hover::after{transform:translateX(100%) rotate(15deg)}
+
+    /* ---------- Keyframes ---------- */
+    @keyframes heroZoom{from{transform:translateZ(-50px) scale(1.04)}to{transform:translateZ(-50px) scale(1.1)}}
+    @keyframes sheen{0%,42%{transform:translateX(-45%);opacity:0}55%{opacity:1}100%{transform:translateX(45%);opacity:0}}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+    @keyframes floatPanel{0%{transform:translateZ(100px) translateY(0)}100%{transform:translateZ(100px) translateY(-8px)}}
+    @keyframes glassShine{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+    @keyframes orbFloat{0%{transform:translate3d(0,0,0) scale(1)}100%{transform:translate3d(30px,-40px,0) scale(1.15)}}
+    @keyframes rotateConic{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+    @keyframes ctaPulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.2);opacity:.8}}
+
+    /* ---------- Custom Cursor ---------- */
+    .cursor{position:fixed;left:0;top:0;width:28px;height:28px;border:2px solid rgba(255,255,255,.9);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s ease,height .2s ease,border-color .2s ease,background .2s ease;mix-blend-mode:difference;display:none}
+    .cursor.hover{width:56px;height:56px;border-color:var(--neon-cyan);background:rgba(0,240,255,.1);box-shadow:0 0 30px rgba(0,240,255,.3)}
+    .cursor.click{transform:translate(-50%,-50%) scale(.75)}
+    .cursor-glow{position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(0,240,255,.25) 0%,transparent 70%);opacity:0;transition:opacity .2s ease}
+    .cursor.hover .cursor-glow{opacity:1}
+    .cursor-trail{position:fixed;left:0;top:0;width:8px;height:8px;background:var(--neon-cyan);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);filter:blur(2px);opacity:.5;transition:opacity .15s ease;mix-blend-mode:screen;display:none}
+    @media(pointer:fine){.cursor,.cursor-trail{display:block}}
+
+    /* ---------- Magnetic Buttons ---------- */
+    .magnetic{transition:transform .2s cubic-bezier(.2,.8,.2,1)}
+
+    /* ---------- Ripple Effect ---------- */
+    .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.4);transform:scale(0);animation:rippleEffect .6s ease-out;pointer-events:none}
+    @keyframes rippleEffect{to{transform:scale(4);opacity:0}}
+
+    /* ---------- Text Decode ---------- */
+    .decode-char{display:inline-block;transition:transform .2s ease,color .2s ease;min-width:.25em}
+    .decode-char.locked{transform:translateY(0);color:inherit}
+    .decode-char.scrambling{transform:translateY(-4px);color:var(--neon-cyan)}
+    .decode-char.space{min-width:.28em}
+
+    /* ---------- Scroll Velocity Skew ---------- */
+    .velocity-skew{transition:transform .15s ease-out}
+
+    /* ---------- Spotlight on Cards ---------- */
+    .spotlight{position:relative;overflow:hidden}
+    .spotlight::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--mouse-x,50%) var(--mouse-y,50%),rgba(255,255,255,.18) 0%,transparent 50%);opacity:0;transition:opacity .3s ease;pointer-events:none;z-index:0}
+    .spotlight:hover::before{opacity:1}
+    .spotlight>*{position:relative;z-index:1}
+
+    /* ---------- Animated Gradient Border ---------- */
+    .gradient-border{position:relative;background:#fff;border-radius:24px;z-index:1}
+    .gradient-border::before{content:"";position:absolute;inset:-2px;border-radius:26px;background:linear-gradient(90deg,var(--blue),var(--neon-cyan),var(--neon-purple),var(--gold),var(--blue));background-size:300% 300%;z-index:-1;animation:borderFlow 4s ease infinite;opacity:0;transition:opacity .4s ease}
+    .gradient-border:hover::before{opacity:1}
+    @keyframes borderFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+    /* ---------- Animated Gradient Text ---------- */
+    .gradient-text{background:linear-gradient(90deg,var(--blue),var(--neon-cyan),var(--neon-purple),var(--blue));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:textShine 4s linear infinite}
+    @keyframes textShine{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+
+    /* ---------- Parallax Images ---------- */
+    .parallax-img{transition:transform .1s linear}
+
+    /* ---------- Floating 3D Badges ---------- */
+    .float-badge{position:absolute;display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.12);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:13px;font-weight:650;box-shadow:0 10px 30px rgba(0,0,0,.2);animation:floatBadge 8s ease-in-out infinite alternate;pointer-events:none;z-index:4}
+    .float-badge svg{width:16px;height:16px}
+    .float-badge.b1{top:18%;right:12%;animation-delay:0s}
+    .float-badge.b2{top:34%;left:6%;animation-delay:-3s}
+    .float-badge.b3{bottom:26%;right:18%;animation-delay:-6s}
+    @keyframes floatBadge{0%{transform:translateZ(120px) translateY(0) rotateX(0)}100%{transform:translateZ(120px) translateY(-15px) rotateX(5deg)}}
+
+    /* ---------- Counter Animation ---------- */
+    .counter{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+    .counter.visible{opacity:1;transform:none}
+
+    /* ---------- Glitch Hover ---------- */
+    .glitch-hover{position:relative;display:inline-block}
+    .glitch-hover::before,.glitch-hover::after{content:attr(data-text);position:absolute;left:0;top:0;width:100%;height:100%;opacity:0;pointer-events:none}
+    .glitch-hover::before{color:#ff00ff;clip-path:inset(0 0 50% 0);transform:translateX(-2px)}
+    .glitch-hover::after{color:#00ffff;clip-path:inset(50% 0 0 0);transform:translateX(2px)}
+    .glitch-hover:hover::before{animation:glitchTop .25s cubic-bezier(.25,.46,.45,.94) both infinite;opacity:.8}
+    .glitch-hover:hover::after{animation:glitchBottom .25s cubic-bezier(.25,.46,.45,.94) both infinite;opacity:.8}
+    @keyframes glitchTop{0%{transform:translateX(-2px)}20%{transform:translateX(2px)}40%{transform:translateX(-2px)}60%{transform:translateX(2px)}80%{transform:translateX(-1px)}100%{transform:translateX(0)}}
+    @keyframes glitchBottom{0%{transform:translateX(2px)}20%{transform:translateX(-2px)}40%{transform:translateX(2px)}60%{transform:translateX(-2px)}80%{transform:translateX(1px)}100%{transform:translateX(0)}}
+
+    /* ---------- Aurora Background ---------- */
+    .aurora-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+    .aurora-bg::before{content:"";position:absolute;inset:-50%;background:conic-gradient(from 0deg at 50% 50%,transparent 0deg,var(--neon-cyan) 60deg,transparent 120deg,var(--neon-purple) 180deg,transparent 240deg,var(--blue) 300deg,transparent 360deg);opacity:.08;animation:auroraSpin 20s linear infinite;filter:blur(40px)}
+    @keyframes auroraSpin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+
+    @media(max-width:980px){
+      .links a:nth-child(n+5){display:none}
+      .hero-panel{position:relative;right:auto;bottom:auto;margin:-78px auto 34px;width:min(720px,calc(100% - 32px));transform:translateZ(0)}
+      .quick,.feature,.cards,.story,.contact{grid-template-columns:1fr}
+      .metrics{grid-template-columns:repeat(2,1fr)}
+      .gallery-stage{display:none}
+      .gallery-mobile{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:210px;gap:14px}
+      .feature-media{min-height:390px}
+      .hero-scene{transform:none!important}
+      .flip-card{min-height:360px}
+    }
+    @media(max-width:620px){
+      .links a:nth-child(n+2){display:none}
+      .hero-content{padding:62px 0 98px}
+      .actions{flex-direction:column;align-items:stretch}
+      .btn{width:100%}
+      .quick,.metrics,.gallery-mobile,.social-grid{grid-template-columns:1fr}
+      .story-photo,.story-copy,.dark-stage{min-height:480px;padding:28px}
+      .float{left:12px;right:12px}
+      .float a{flex:1;padding:0 8px}
+      footer{display:block}
+      .orb,.blob-wrap,.float-badge{display:none}
+      .flip-card{min-height:320px}
+      .flip-card-inner{transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+      .reveal{opacity:1;transform:none;filter:none}
+      .hero-scene{transform:none!important}
+      .cursor,.cursor-trail,.preloader{display:none!important}
+    }
+  </style>
+</head>
+<body>
+  <div class="preloader" id="preloader"><div class="preloader-ring"></div><div class="preloader-logo">ARYAN</div></div>
+  <div class="progress-bar" aria-hidden="true"></div>
+  <div class="cursor" id="cursor" aria-hidden="true"><div class="cursor-glow"></div></div>
+  <div class="cursor-trail" id="cursorTrail" aria-hidden="true"></div>
+
+  <nav class="nav" id="navbar">
+    <div class="nav-inner">
+      <a class="brand" href="#top">Aryan College</a>
+      <div class="links">
+        <a href="#academics">Academics</a>
+        <a href="#admissions">Admissions</a>
+        <a href="#campus">Campus</a>
+        <a href="#contact">Contact</a>
+        <a class="erp-pill" href="https://eric.aryancollege.in/main/login">ERP</a>
+        <a class="nav-pill" href="https://docs.google.com/forms/d/e/1FAIpQLSfm3rtq2xB3L7jVHgNk_4P4R8KAoGXpTmDgdpxuxGIn_NICQg/viewform">Apply</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="hero perspective">
+      <div class="hero-scene preserve" id="heroScene">
+        <div class="hero-media-layer"></div>
+        <div class="hero-sheen"></div>
+        <canvas class="hero-particles" id="heroParticles" aria-hidden="true"></canvas>
+        <div class="hero-vignette"></div>
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+      </div>
+      <div class="blob-wrap">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+      </div>
+      <div class="float-badge b1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg> Top Ranked</div>
+      <div class="float-badge b2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Since 2004</div>
+      <div class="float-badge b3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> 5000+ Alumni</div>
+      <div class="hero-content">
+        <p class="kicker">Ajmer, Rajasthan</p>
+        <h1 class="hero-headline decode-text" id="heroHeadline">Designed for ambition. Built for futures.</h1>
+        <p class="hero-copy">A premium digital home for Aryan College, crafted to make admissions, academics, student life, and outcomes feel clear, confident, and inspiring.</p>
+        <div class="actions">
+          <a class="btn primary" href="https://docs.google.com/forms/d/e/1FAIpQLSfm3rtq2xB3L7jVHgNk_4P4R8KAoGXpTmDgdpxuxGIn_NICQg/viewform">Apply for Admission</a>
+          <a class="btn" href="https://wa.me/919929999981">Chat on WhatsApp</a>
+          <a class="btn call-btn" href="tel:+919929999981">📞 Call Now</a>
+        </div>
+      </div>
+      <div class="hero-panel">
+        <strong>One page. Every next step.</strong>
+        <span>Admissions, fee payment, ERP, programs, gallery, placements, and social channels are now arranged for fast decisions.</span>
+      </div>
+    </header>
+
+    <div class="quick">
+      <a class="spotlight" href="https://forms.eduqfix.com/aryaneds/add"><b>Online Fee Payment</b><span>Fast access for students and parents.</span></a>
+      <a class="spotlight" href="https://sites.google.com/aryancollege.in/intranet/home"><b>Student Intranet</b><span>Internal resources, updates, and links.</span></a>
+      <a class="spotlight" href="https://aryancollege.in/wp-content/uploads/2018/06/ARYAN-COLLEGE-admission-Form-updated.pdf"><b>Admission Form</b><span>Download the form instantly.</span></a>
+      <a class="spotlight" href="https://aryancollege.in/syllabus/"><b>Syllabus</b><span>Academic references in one click.</span></a>
+    </div>
+
+    <section class="feature gradient-border holo">
+      <div class="feature-copy">
+        <p class="kicker" style="color:var(--blue)">A modern campus experience</p>
+        <h2>Shaping future-ready learners with purpose and confidence.</h2>
+        <p>Aryan College offers a strong academic foundation, guided admissions support, vibrant campus life, and career-focused opportunities that help students grow with clarity and direction.</p>
+        <div class="actions">
+          <a class="btn blue" href="about-aryan-redesign.html">Explore Aryan</a>
+          <a class="btn" style="border-color:rgba(0,113,227,.35);color:var(--blue)" href="https://aryancollege.in/contact-us/">Contact Office</a>
+        </div>
+      </div>
+      <div class="feature-media" aria-label="Aryan College student event"></div>
+    </section>
+
+    <section>
+      <div class="metrics">
+        <div class="metric spotlight"><strong>01</strong><span>Apply Online</span></div>
+        <div class="metric spotlight"><strong>02</strong><span>Pay Fees</span></div>
+        <div class="metric spotlight"><strong>03</strong><span>Use ERP</span></div>
+        <div class="metric spotlight"><strong>04</strong><span>Explore Campus</span></div>
+      </div>
+    </section>
+
+    <section id="academics">
+      <div class="section-head">
+        <h2 class="gradient-text">Academics with a clear path.</h2>
+        <p>Programs, departments, teaching teams, and student resources are organized into simple choices that feel easy to trust.</p>
+      </div>
+      <div class="cards">
+        <a class="flip-card" href="https://aryancollege.in/programs/">
+          <div class="flip-card-inner">
+            <div class="flip-card-front spotlight">
+              <div><h3>Programs</h3><p>Present the available study options in a way prospective students can understand immediately.</p></div>
+              <span style="color:var(--blue);font-weight:700">View programs →</span>
+            </div>
+            <div class="flip-card-back">
+              <div class="flip-icon">🎓</div>
+              <h3>Programs</h3>
+              <p>Explore undergraduate, postgraduate, and professional courses designed for real-world success.</p>
+            </div>
+          </div>
+        </a>
+        <a class="flip-card" href="https://aryancollege.in/departments/">
+          <div class="flip-card-inner">
+            <div class="flip-card-front spotlight">
+              <div><h3>Departments</h3><p>Show academic structure, focus areas, and institutional strengths without a crowded menu.</p></div>
+              <span style="color:var(--blue);font-weight:700">Explore departments →</span>
+            </div>
+            <div class="flip-card-back">
+              <div class="flip-icon">🏛️</div>
+              <h3>Departments</h3>
+              <p>Science, Commerce, Arts, and Management departments led by experienced faculty.</p>
+            </div>
+          </div>
+        </a>
+        <a class="flip-card" href="https://aryancollege.in/andragogy/">
+          <div class="flip-card-inner">
+            <div class="flip-card-front spotlight">
+              <div><h3>Learning Approach</h3><p>Highlight Aryan's approach to student-centered learning and practical development.</p></div>
+              <span style="color:var(--blue);font-weight:700">Learn more →</span>
+            </div>
+            <div class="flip-card-back">
+              <div class="flip-icon">💡</div>
+              <h3>Learning Approach</h3>
+              <p>Blended teaching, projects, seminars, and industry exposure for holistic growth.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section id="admissions" class="story">
+      <div class="story-photo">
+        <h2>Admissions that feel effortless.</h2>
+        <p>The homepage now leads visitors to enquiry, application, fee payment, and downloadable forms without confusion.</p>
+      </div>
+      <div class="story-copy">
+        <div>
+          <h2>A guided journey for every visitor.</h2>
+          <div class="journey">
+            <div class="step"><b>1</b><div><h3>Discover</h3><p>Learn about programs, campus life, and outcomes.</p></div></div>
+            <div class="step"><b>2</b><div><h3>Apply</h3><p>Submit enquiry or admission forms from prominent buttons.</p></div></div>
+            <div class="step"><b>3</b><div><h3>Connect</h3><p>Use WhatsApp, call, Instagram, Facebook, or YouTube directly.</p></div></div>
+          </div>
+        </div>
+        <div class="actions">
+          <a class="btn blue" href="https://docs.google.com/forms/d/e/1FAIpQLScRHy64x0IQHtuoq-TOYMTNDdulp3-7i9LHnhZBb0Wm5elkVA/viewform">Admission Enquiry</a>
+          <a class="btn" style="border-color:rgba(0,113,227,.35);color:var(--blue)" href="https://docs.google.com/forms/d/e/1FAIpQLSfm3rtq2xB3L7jVHgNk_4P4R8KAoGXpTmDgdpxuxGIn_NICQg/viewform">Apply Now</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="dark-stage">
+        <div class="aurora-bg"></div>
+        <h2>Placements, careers, and self-actualization in one powerful story.</h2>
+        <p>Student outcomes are treated as a central promise of the college experience, with direct links for placements and careers.</p>
+        <div class="actions">
+          <a class="btn primary" href="https://aryancollege.in/placements/">Placements</a>
+          <a class="btn" href="https://aryancollege.in/careers/">Careers</a>
+          <a class="btn" href="https://aryancollege.in/self-actualization/">Self Actualization</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="campus">
+      <div class="section-head">
+        <h2 class="gradient-text">Campus life with cinematic energy.</h2>
+        <p>Events, activities, gallery moments, publications, and student life now feel visual, alive, and memorable.</p>
+      </div>
+      <div class="gallery-stage">
+        <div class="gallery-carousel" id="galleryCarousel">
+          <a class="gallery-item" href="https://aryancollege.in/multimedia/gallery/" data-index="0"><img src="https://aryancollege.in/wp-content/uploads/2022/03/IMG_0383.jpg" alt="Aryan College event scene"></a>
+          <a class="gallery-item" href="https://aryancollege.in/multimedia/gallery/" data-index="1"><img src="https://aryancollege.in/wp-content/uploads/2022/03/DSC0369.jpg" alt="Aryan College auditorium scene"></a>
+          <a class="gallery-item" href="https://aryancollege.in/multimedia/gallery/" data-index="2"><img src="https://aryancollege.in/wp-content/uploads/2022/03/IMG_6802.jpg" alt="Aryan College student activity"></a>
+          <a class="gallery-item" href="https://aryancollege.in/multimedia/gallery/" data-index="3"><img src="https://aryancollege.in/wp-content/uploads/2022/03/DSC0610.jpg" alt="Aryan College group moment"></a>
+          <a class="gallery-item" href="https://aryancollege.in/multimedia/gallery/" data-index="4"><img src="https://aryancollege.in/wp-content/uploads/2022/03/IMG_6818.jpg" alt="Aryan College ceremony"></a>
+        </div>
+        <div class="gallery-controls">
+          <button class="gallery-nav" id="galleryPrev" aria-label="Previous image">←</button>
+          <div id="galleryDots"></div>
+          <button class="gallery-nav" id="galleryNext" aria-label="Next image">→</button>
+        </div>
+      </div>
+      <div class="gallery-mobile" style="display:none">
+        <a href="https://aryancollege.in/multimedia/gallery/"><img src="https://aryancollege.in/wp-content/uploads/2022/03/IMG_0383.jpg" alt="Aryan College event scene"></a>
+        <a href="https://aryancollege.in/multimedia/gallery/"><img src="https://aryancollege.in/wp-content/uploads/2022/03/DSC0369.jpg" alt="Aryan College auditorium scene"></a>
+        <a href="https://aryancollege.in/multimedia/gallery/"><img src="https://aryancollege.in/wp-content/uploads/2022/03/IMG_6802.jpg" alt="Aryan College student activity"></a>
+        <a href="https://aryancollege.in/multimedia/gallery/"><img src="https://aryancollege.in/wp-content/uploads/2022/03/DSC0610.jpg" alt="Aryan College group moment"></a>
+        <a href="https://aryancollege.in/multimedia/gallery/"><img src="https://aryancollege.in/wp-content/uploads/2022/03/IMG_6818.jpg" alt="Aryan College ceremony"></a>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="contact-card spotlight">
+        <h2>Connect instantly.</h2>
+        <p>For admissions and general enquiries, students and parents can reach Aryan College through phone, WhatsApp, and social media.</p>
+        <div class="actions">
+          <a class="btn blue" href="tel:+919929999981">Call 9929999981</a>
+          <a class="btn" style="border-color:rgba(0,113,227,.35);color:var(--blue)" href="https://wa.me/919929999981">WhatsApp</a>
+        </div>
+      </div>
+      <div class="contact-card spotlight">
+        <h2>Social channels.</h2>
+        <div class="social-grid">
+          <a class="social-link instagram" href="https://www.instagram.com/aryancollegeofficial" target="_blank" rel="noopener">
+            <span aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.8"></rect><circle cx="12" cy="12" r="4.3" stroke="currentColor" stroke-width="1.8"></circle><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"></circle></svg></span>
+            <span>Instagram</span>
+          </a>
+          <a class="social-link facebook" href="https://www.facebook.com/shekhawatamarpal" target="_blank" rel="noopener">
+            <span aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M14 8h2V5h-3c-2.8 0-4 1.6-4 4.2V10H7v3h2v7h3v-7h2.5l.5-3H12V7.4c0-.8.2-1.4 1.3-1.4Z"></path></svg></span>
+            <span>Facebook</span>
+          </a>
+          <a class="social-link youtube" href="https://www.youtube.com/user/dreamsifyoucan" target="_blank" rel="noopener">
+            <span aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M21.6 7.2a2.7 2.7 0 0 0-1.9-1.9C18.2 4.8 12 4.8 12 4.8s-6.2 0-7.7.5A2.7 2.7 0 0 0 2.4 7.2 28.7 28.7 0 0 0 2 12a28.7 28.7 0 0 0 .4 4.8 2.7 2.7 0 0 0 1.9 1.9c1.5.5 7.7.5 7.7.5s6.2 0 7.7-.5a2.7 2.7 0 0 0 1.9-1.9c.4-1.6.4-3.2.4-4.8s0-3.2-.4-4.8ZM10 15.5v-7l6 3.5-6 3.5Z"></path></svg></span>
+            <span>YouTube</span>
+          </a>
+          <a class="whatsapp" href="https://wa.me/919929999981" target="_blank" rel="noopener">
+            <span aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 3.5a8.5 8.5 0 0 0-7.3 13.1L3 20.5l4.4-1.1A8.5 8.5 0 1 0 12 3.5Zm0 15.2a7 7 0 0 1-3.6-.95l-.3-.2-2.6.65.65-2.5-.2-.3A7 7 0 1 1 12 18.7Z"></path></svg></span>
+            <span>WhatsApp</span>
+          </a>
+          <a class="call" href="tel:+919929999981">Call</a>
+          <a class="social-link erp" href="https://eric.aryancollege.in/main/login" target="_blank" rel="noopener">ERP</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="final-cta holo">
+        <div>
+          <h2>Ready for admission.</h2>
+          <p>A polished first impression for students, parents, faculty, and leadership.</p>
+          <div class="actions" style="justify-content:center">
+            <a class="btn primary" href="https://docs.google.com/forms/d/e/1FAIpQLSfm3rtq2xB3L7jVHgNk_4P4R8KAoGXpTmDgdpxuxGIn_NICQg/viewform">Apply Here</a>
+            <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLScRHy64x0IQHtuoq-TOYMTNDdulp3-7i9LHnhZBb0Wm5elkVA/viewform">Ask a Question</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>Premium 3D redesign for Aryan College, Ajmer.</div>
+    <div>
+      <a class="glitch-hover" data-text="Original site" href="https://aryancollege.in/">Original site</a> |
+      <a class="glitch-hover" data-text="Instagram" href="https://www.instagram.com/aryancollegeofficial">Instagram</a> |
+      <a class="glitch-hover" data-text="Facebook" href="https://www.facebook.com/shekhawatamarpal">Facebook</a> |
+      <a class="glitch-hover" data-text="YouTube" href="https://www.youtube.com/user/dreamsifyoucan">YouTube</a>
+    </div>
+  </footer>
+
+  <div class="float">
+    <a class="whatsapp" href="https://wa.me/919929999981" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="call" href="tel:+919929999981" aria-label="Call now"><span aria-hidden="true">📞</span></a>
+  </div>
+
+  <script>
+    /* ---------- Preloader ---------- */
+    window.addEventListener('load', () => {
+      const preloader = document.getElementById('preloader');
+      if (preloader) {
+        setTimeout(() => preloader.classList.add('hidden'), 1200);
+      }
+    });
+
+    /* ---------- Scroll Reveal ---------- */
+    const items = document.querySelectorAll('section, .quick a, .metric, .flip-card, .step, .gallery a, .contact-card, .final-cta, .feature-media, .hero-panel, .section-head');
+    items.forEach((item, index) => item.classList.add('reveal', 'delay-' + ((index % 5) + 1)));
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+    items.forEach(item => observer.observe(item));
+
+    /* ---------- Progress Bar + Nav Active State + Scroll Hide ---------- */
+    const progressBar = document.querySelector('.progress-bar');
+    const navLinks = [...document.querySelectorAll('.links a[href^="#"]')];
+    const sections = [...document.querySelectorAll('main section[id], main header.hero')];
+    const navbar = document.getElementById('navbar');
+    let lastScrollY = 0;
+
+    const updateScroll = () => {
+      const scrollTop = window.scrollY;
+      const height = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = height > 0 ? (scrollTop / height) * 100 : 0;
+      if (progressBar) progressBar.style.width = progress + '%';
+
+      document.body.classList.toggle('scrolled', scrollTop > 24);
+      navbar.classList.toggle('scrolled', scrollTop > 24);
+      navbar.classList.toggle('hide', scrollTop > lastScrollY && scrollTop > 120);
+      lastScrollY = scrollTop;
+
+      const currentSection = sections.slice().reverse().find(section => scrollTop >= section.offsetTop - 140);
+      navLinks.forEach(link => {
+        const id = link.getAttribute('href');
+        link.classList.toggle('active', currentSection && id === `#${currentSection.id}`);
+      });
+    };
+    updateScroll();
+    window.addEventListener('scroll', updateScroll, { passive: true });
+    window.addEventListener('resize', updateScroll);
+
+    /* ---------- 3D Hero Parallax Mouse Tilt ---------- */
+    const heroScene = document.getElementById('heroScene');
+    const heroMedia = document.querySelector('.hero-media-layer');
+    let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
+
+    if (heroScene && window.matchMedia('(prefers-reduced-motion: no-preference)').matches && window.innerWidth > 620) {
+      window.addEventListener('pointermove', e => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 2;
+        const y = (e.clientY / window.innerHeight - 0.5) * 2;
+        targetX = x * 6;
+        targetY = -y * 6;
+        if (heroMedia) {
+          const bgX = x * 18;
+          const bgY = y * 18;
+          heroMedia.style.backgroundPosition = `calc(50% + ${bgX}px) calc(50% + ${bgY}px)`;
+        }
+      }, { passive: true });
+
+      const animateHero = () => {
+        mouseX += (targetX - mouseX) * 0.06;
+        mouseY += (targetY - mouseY) * 0.06;
+        heroScene.style.transform = `rotateY(${mouseX}deg) rotateX(${mouseY}deg)`;
+        requestAnimationFrame(animateHero);
+      };
+      animateHero();
+    }
+
+    /* ---------- 3D Tilt for Cards & Quick Links ---------- */
+    const tiltTargets = document.querySelectorAll('.card, .quick a, .metric, .contact-card');
+    tiltTargets.forEach(el => {
+      el.addEventListener('pointermove', e => {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
+        const rx = ((y - cy) / cy) * -8;
+        const ry = ((x - cx) / cx) * 8;
+        el.style.transform = `translateY(-8px) translateZ(30px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
+      });
+      el.addEventListener('pointerleave', () => {
+        el.style.transform = '';
+      });
+    });
+
+    /* ---------- WebGL Particle Canvas ---------- */
+    const canvas = document.getElementById('heroParticles');
+    if (canvas && window.matchMedia('(prefers-reduced-motion: no-preference)').matches && window.innerWidth > 620) {
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+      const particleCount = 80;
+
+      const resizeCanvas = () => {
+        const hero = canvas.closest('.hero');
+        canvas.width = hero.offsetWidth;
+        canvas.height = hero.offsetHeight;
+      };
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      class Particle {
+        constructor() {
+          this.reset();
+        }
+        reset() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.z = Math.random() * 2 + 0.5;
+          this.size = Math.random() * 2 + 0.5;
+          this.speedX = (Math.random() - 0.5) * 0.5;
+          this.speedY = (Math.random() - 0.5) * 0.5;
+          this.opacity = Math.random() * 0.5 + 0.2;
+        }
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+          if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+        }
+        draw() {
+          const scale = 1 + this.z * 0.5;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size * scale, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity * scale})`;
+          ctx.fill();
+        }
+      }
+
+      for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+
+      const drawParticles = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => { p.update(); p.draw(); });
+
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 120) {
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = `rgba(255, 255, 255, ${0.08 * (1 - dist / 120)})`;
+              ctx.lineWidth = 0.5;
+              ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(drawParticles);
+      };
+      drawParticles();
+    }
+
+    /* ---------- Smooth Reveal for Hero Content ---------- */
+    const heroContent = document.querySelector('.hero-content');
+    if (heroContent) {
+      heroContent.style.opacity = '0';
+      heroContent.style.transform = 'translateY(60px) translateZ(80px) rotateX(10deg)';
+      setTimeout(() => {
+        heroContent.style.transition = 'opacity 1.2s ease, transform 1.2s cubic-bezier(.2,.8,.2,1)';
+        heroContent.style.opacity = '1';
+        heroContent.style.transform = 'translateY(0) translateZ(80px) rotateX(0)';
+      }, 200);
+    }
+
+    /* ---------- Custom Cursor ---------- */
+    const cursor = document.getElementById('cursor');
+    const cursorTrail = document.getElementById('cursorTrail');
+    if (cursor && window.matchMedia('(pointer: fine)').matches && window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+      let cursorX = 0, cursorY = 0, trailX = 0, trailY = 0;
+      window.addEventListener('pointermove', e => { cursorX = e.clientX; cursorY = e.clientY; }, { passive: true });
+      window.addEventListener('pointerdown', () => cursor.classList.add('click'));
+      window.addEventListener('pointerup', () => cursor.classList.remove('click'));
+
+      const interactive = document.querySelectorAll('a, button, .btn, .card, .quick a, .metric, .gallery a, .contact-card, .social-grid a, .step, .flip-card, .gallery-item, .gallery-nav');
+      interactive.forEach(el => {
+        el.addEventListener('pointerenter', () => cursor.classList.add('hover'));
+        el.addEventListener('pointerleave', () => cursor.classList.remove('hover'));
+      });
+
+      const animateCursor = () => {
+        cursor.style.left = cursorX + 'px';
+        cursor.style.top = cursorY + 'px';
+        trailX += (cursorX - trailX) * 0.15;
+        trailY += (cursorY - trailY) * 0.15;
+        cursorTrail.style.left = trailX + 'px';
+        cursorTrail.style.top = trailY + 'px';
+        requestAnimationFrame(animateCursor);
+      };
+      animateCursor();
+    }
+
+    /* ---------- Magnetic Buttons ---------- */
+    document.querySelectorAll('.btn, .float a, .nav-pill, .erp-pill, .gallery-nav').forEach(btn => {
+      btn.classList.add('magnetic');
+      btn.addEventListener('pointermove', e => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${x * 0.25}px, ${y * 0.25}px) translateZ(20px)`;
+      });
+      btn.addEventListener('pointerleave', () => { btn.style.transform = ''; });
+    });
+
+    /* ---------- Ripple Click Effect ---------- */
+    document.querySelectorAll('.btn, .card, .quick a, .metric, .gallery a, .contact-card, .social-grid a, .flip-card-front').forEach(el => {
+      el.style.position = 'relative';
+      el.style.overflow = 'hidden';
+      el.addEventListener('pointerdown', e => {
+        const rect = el.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        const size = Math.max(rect.width, rect.height) * 1.5;
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+        ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+        el.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+      });
+    });
+
+    /* ---------- Text Decode Animation with proper spacing ---------- */
+    const decodeText = document.querySelector('.decode-text');
+    if (decodeText && window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+      const originalText = decodeText.textContent;
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&';
+      decodeText.innerHTML = originalText.split('').map((char, i) => {
+        const isSpace = char === ' ';
+        const display = isSpace ? '&nbsp;' : char;
+        return `<span class="decode-char ${isSpace ? 'space' : ''}" data-index="${i}" data-char="${char}">${display}</span>`;
+      }).join('');
+      const decodeChars = decodeText.querySelectorAll('.decode-char');
+      let iteration = 0;
+      const maxIterations = 15;
+      const interval = setInterval(() => {
+        decodeChars.forEach((span, i) => {
+          if (i < iteration * 1.5) {
+            span.innerHTML = span.dataset.char === ' ' ? '&nbsp;' : span.dataset.char;
+            span.classList.add('locked');
+            span.classList.remove('scrambling');
+          } else if (span.dataset.char !== ' ') {
+            span.textContent = chars[Math.floor(Math.random() * chars.length)];
+            span.classList.add('scrambling');
+          }
+        });
+        iteration++;
+        if (iteration > maxIterations) {
+          clearInterval(interval);
+          decodeChars.forEach(span => {
+            span.innerHTML = span.dataset.char === ' ' ? '&nbsp;' : span.dataset.char;
+            span.classList.add('locked');
+            span.classList.remove('scrambling');
+          });
+          setTimeout(() => {
+            decodeText.classList.add('decoded');
+          }, 400);
+        }
+      }, 70);
+    }
+
+    /* ---------- Kinetic Typography for Hero Headline ---------- */
+    const heroHeadline = document.getElementById('heroHeadline');
+    if (heroHeadline && window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+      const words = heroHeadline.textContent.split(' ');
+      heroHeadline.innerHTML = words.map(word => `<span class="word">${word.split('').map(char => `<span class="char">${char === ' ' ? '&nbsp;' : char}</span>`).join('')}</span>`).join(' ');
+      const headlineChars = heroHeadline.querySelectorAll('.char');
+      headlineChars.forEach(char => {
+        char.addEventListener('pointerenter', () => {
+          char.style.transform = 'translateZ(40px) rotateY(20deg) scale(1.2)';
+          char.style.color = 'var(--neon-cyan)';
+        });
+        char.addEventListener('pointerleave', () => {
+          char.style.transform = '';
+          char.style.color = '';
+        });
+      });
+    }
+
+    /* ---------- Scroll Velocity Skew ---------- */
+    let lastScroll = 0, velocity = 0, skewTarget = 0, currentSkew = 0;
+    const main = document.querySelector('main');
+    if (main && window.matchMedia('(prefers-reduced-motion: no-preference)').matches && window.innerWidth > 620) {
+      main.classList.add('velocity-skew');
+      window.addEventListener('scroll', () => {
+        const current = window.scrollY;
+        velocity = current - lastScroll;
+        lastScroll = current;
+        skewTarget = Math.max(-1.2, Math.min(1.2, velocity * 0.03));
+      }, { passive: true });
+      const animateSkew = () => {
+        currentSkew += (skewTarget - currentSkew) * 0.08;
+        skewTarget *= 0.92;
+        main.style.transform = `skewY(${currentSkew}deg)`;
+        requestAnimationFrame(animateSkew);
+      };
+      animateSkew();
+    }
+
+    /* ---------- Spotlight Effect on Cards ---------- */
+    document.querySelectorAll('.spotlight').forEach(el => {
+      el.addEventListener('pointermove', e => {
+        const rect = el.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        el.style.setProperty('--mouse-x', x + '%');
+        el.style.setProperty('--mouse-y', y + '%');
+      });
+    });
+
+    /* ---------- Animated Counter ---------- */
+    const counters = document.querySelectorAll('.metric strong');
+    const counterObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          el.classList.add('counter', 'visible');
+          const original = el.textContent;
+          const target = parseInt(original);
+          if (!isNaN(target)) {
+            let current = 0;
+            const duration = 1500;
+            const step = target / (duration / 16);
+            const countUp = () => {
+              current += step;
+              if (current < target) {
+                el.textContent = Math.ceil(current).toString().padStart(2, '0');
+                requestAnimationFrame(countUp);
+              } else {
+                el.textContent = original;
+              }
+            };
+            countUp();
+          }
+          counterObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(c => counterObserver.observe(c));
+
+    /* ---------- 3D Gallery Carousel ---------- */
+    const carousel = document.getElementById('galleryCarousel');
+    if (carousel && window.innerWidth > 980) {
+      const items = [...carousel.querySelectorAll('.gallery-item')];
+      const dotsContainer = document.getElementById('galleryDots');
+      let currentIndex = 0;
+      const total = items.length;
+      const radius = 360;
+
+      items.forEach((item, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', `Go to image ${i + 1}`);
+        dot.addEventListener('click', () => goTo(i));
+        dotsContainer.appendChild(dot);
+      });
+      const dots = [...dotsContainer.querySelectorAll('.gallery-dot')];
+
+      const updateCarousel = () => {
+        items.forEach((item, i) => {
+          const offset = i - currentIndex;
+          const angle = offset * (360 / total);
+          const radians = angle * Math.PI / 180;
+          const x = Math.sin(radians) * radius;
+          const z = Math.cos(radians) * radius - radius;
+          const scale = offset === 0 ? 1.15 : 0.85;
+          const opacity = offset === 0 ? 1 : 0.5;
+          const blur = offset === 0 ? 0 : 2;
+          item.style.transform = `translateX(${x}px) translateZ(${z}px) scale(${scale})`;
+          item.style.opacity = opacity;
+          item.style.filter = `blur(${blur}px)`;
+          item.style.zIndex = offset === 0 ? 10 : 5 - Math.abs(offset);
+        });
+        dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
+      };
+
+      const goTo = index => {
+        currentIndex = (index + total) % total;
+        updateCarousel();
+      };
+
+      document.getElementById('galleryPrev').addEventListener('click', () => goTo(currentIndex - 1));
+      document.getElementById('galleryNext').addEventListener('click', () => goTo(currentIndex + 1));
+
+      let autoRotate = setInterval(() => goTo(currentIndex + 1), 4000);
+      carousel.addEventListener('pointerenter', () => clearInterval(autoRotate));
+      carousel.addEventListener('pointerleave', () => autoRotate = setInterval(() => goTo(currentIndex + 1), 4000));
+
+      updateCarousel();
+    }
+  </script>
+</body>
+</html>
