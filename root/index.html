@@ -3,12 +3,14 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-<!-- This site is hosted on Netlify. Anyone can build and deploy a site
-     like this one for free: https://netlify.new/?utm_campaign=loops&utm_source=ai-legible&utm_medium=owned&utm_content=comment&utm_id=b3506d3d-7f4a-4ad5-ba2c-9fa04f5948e9
-     Netlify hosting facts for this site: static/SSR served via Netlify Edge. -->
+  <!-- This site is hosted on Netlify. Anyone can build and deploy a site
+       like this one for free: https://netlify.new/?utm_campaign=loops&utm_source=ai-legible&utm_medium=owned&utm_content=comment&utm_id=b3506d3d-7f4a-4ad5-ba2c-9fa04f5948e9
+       Netlify hosting facts for this site: static/SSR served via Netlify Edge. -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Aryan College | Premium 3D Redesign</title>
   <meta name="description" content="A premium, modern 3D homepage redesign for Aryan College, Ajmer.">
+  <link rel="preload" as="image" href="https://aryancollege.in/wp-content/uploads/2022/03/IMG_0383.jpg" fetchpriority="high">
+  <link rel="icon" type="image/png" href="ARYAN COLLEGE Logo.png">
   <style>
     :root{
       --ink:#17171a;--muted:#696970;--soft:#f5f5f7;--white:#fff;--blue:#006edb;--teal:#16766b;--plum:#593f67;--gold:#b7772c;--line:rgba(0,0,0,.1);--shadow:0 26px 80px rgba(0,0,0,.13);
@@ -20,14 +22,6 @@
     body{margin:0;background:var(--soft);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;letter-spacing:0;overflow-x:hidden}
     a{color:inherit;text-decoration:none}
     img{display:block;width:100%;height:100%;object-fit:cover}
-
-    /* ---------- Preloader ---------- */
-    .preloader{position:fixed;inset:0;background:#050507;display:grid;place-items:center;z-index:10000;transition:opacity .8s ease,visibility .8s ease}
-    .preloader.hidden{opacity:0;visibility:hidden;pointer-events:none}
-    .preloader-ring{width:120px;height:120px;border-radius:50%;border:3px solid transparent;border-top-color:var(--neon-cyan);border-right-color:var(--neon-purple);border-bottom-color:var(--blue);animation:preloaderSpin 1.5s linear infinite;box-shadow:0 0 60px rgba(0,240,255,.2),inset 0 0 40px rgba(0,110,219,.1)}
-    .preloader-logo{position:absolute;font-size:22px;font-weight:800;color:#fff;letter-spacing:2px;animation:preloaderPulse 1.5s ease-in-out infinite}
-    @keyframes preloaderSpin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
-    @keyframes preloaderPulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.1)}}
 
     /* ---------- 3D Scene Utilities ---------- */
     .perspective{perspective:1200px;perspective-origin:50% 50%}
@@ -73,7 +67,7 @@
     .hero-copy{max-width:690px;margin:26px 0 0;color:rgba(255,255,255,.78);font-size:clamp(21px,2.7vw,31px);line-height:1.25;font-weight:520;transform:translateZ(40px)}
     .actions{display:flex;flex-wrap:wrap;gap:13px;margin-top:32px;transform:translateZ(50px)}
     .btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 22px;border-radius:999px;border:1px solid rgba(255,255,255,.34);font-size:16px;font-weight:650;transition:transform .24s ease,box-shadow .24s ease,background .24s ease;transform-style:preserve-3d;cursor:pointer}
-    .btn::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent,rgba(255,255,255,.4),transparent);transform:translateX(-120%);transition:transform .58s ease}
+    .btn::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent,rgba(255,255,255,.4),transparent);transform:translateX(-120%);transition:transform .58s ease;pointer-events:none}
     .btn:hover{transform:translateY(-3px) scale(1.03) rotateX(5deg);box-shadow:0 18px 40px rgba(0,0,0,.18)}
     .btn:hover::after{transform:translateX(120%)}
     .btn:active{transform:translateY(-1px) scale(.98)}
@@ -81,6 +75,10 @@
     .btn.primary:hover{box-shadow:0 18px 40px rgba(255,255,255,.25)}
     .btn.blue{background:var(--blue);color:#fff;border-color:var(--blue)}
     .btn.blue:hover{background:linear-gradient(135deg,var(--blue),var(--neon-cyan));box-shadow:0 18px 40px rgba(0,110,219,.35)}
+    .btn.whatsapp-btn{gap:10px;background:#25D366;color:#fff;border-color:#25D366}
+    .btn.whatsapp-btn:hover{background:#1fbd5b;border-color:#1fbd5b;box-shadow:0 18px 40px rgba(37,211,102,.28)}
+    .btn.whatsapp-btn svg{width:21px;height:21px;flex:0 0 auto;fill:currentColor}
+    .contact-card .actions{transform:none}
     .call-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 18px;border-radius:999px;background:linear-gradient(135deg,#0f172a,#2563eb);color:#fff;border:1px solid rgba(255,255,255,.12);box-shadow:0 12px 28px rgba(37,99,235,.25);transition:transform .25s ease,box-shadow .25s ease}
     .call-btn:hover{transform:translateY(-3px) scale(1.03) rotateX(5deg);box-shadow:0 18px 40px rgba(37,99,235,.4)}
     .hero-panel{position:absolute;right:calc((100% - min(1180px,calc(100% - 32px)))/2);bottom:42px;z-index:5;width:min(410px,calc(100% - 32px));padding:24px;border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.12);backdrop-filter:blur(22px);border-radius:24px;box-shadow:0 20px 50px rgba(0,0,0,.24);transform:translateZ(100px);transform-style:preserve-3d;animation:floatPanel 5s ease-in-out infinite alternate,glassShine 6s ease-in-out infinite}
@@ -185,6 +183,7 @@
 
     /* ---------- Gallery 3D Carousel ---------- */
     .gallery-stage{perspective:1200px;padding:40px 0;overflow:hidden}
+    .gallery-mobile{display:none}
     .gallery-carousel{position:relative;height:420px;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
     .gallery-item{position:absolute;left:50%;top:50%;width:320px;height:240px;margin:-120px 0 0 -160px;border-radius:24px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.2);transition:transform .5s ease,box-shadow .5s ease;cursor:pointer;transform-style:preserve-3d}
     .gallery-item img{transition:transform .6s ease}
@@ -197,15 +196,15 @@
     .gallery-nav:hover{transform:scale(1.1);box-shadow:0 10px 30px rgba(0,0,0,.1)}
 
     /* ---------- Contact ---------- */
-    .contact{display:grid;grid-template-columns:.85fr 1.15fr;gap:14px;perspective:1000px}
-    .contact-card{position:relative;border-radius:24px;background:#fff;border:1px solid rgba(0,0,0,.07);padding:36px;transition:transform .4s ease,box-shadow .4s ease;transform-style:preserve-3d;box-shadow:0 20px 60px rgba(0,0,0,.06)}
-    .contact-card:hover{transform:translateZ(30px) rotateX(2deg);box-shadow:0 30px 80px rgba(0,0,0,.1)}
+    .contact{display:grid;grid-template-columns:.85fr 1.15fr;gap:14px}
+    .contact-card{position:relative;isolation:isolate;border-radius:24px;background:#fff;border:1px solid rgba(0,0,0,.07);padding:36px;transition:box-shadow .3s ease;box-shadow:0 20px 60px rgba(0,0,0,.06)}
+    .contact-card:hover{box-shadow:0 30px 80px rgba(0,0,0,.1)}
     .contact-card h2{margin:0;font-size:clamp(34px,4.7vw,58px);line-height:1}
     .contact-card p{margin:14px 0 0;color:var(--muted);font-size:20px;line-height:1.35}
     .social-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:26px}
-    .social-grid a{position:relative;min-height:78px;border-radius:16px;background:#f5f5f7;border:1px solid rgba(0,0,0,.07);display:grid;place-items:center;text-align:center;font-weight:750;transition:transform .35s ease,box-shadow .35s ease;transform-style:preserve-3d;overflow:hidden}
-    .social-grid a::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,.4),transparent 60%);transform:translateX(-100%);transition:transform .6s ease}
-    .social-grid a:hover{transform:translateY(-6px) translateZ(25px) rotateX(5deg);box-shadow:0 20px 45px rgba(0,0,0,.1)}
+    .social-grid a{position:relative;z-index:1;min-height:78px;border-radius:16px;background:#f5f5f7;border:1px solid rgba(0,0,0,.07);display:grid;place-items:center;text-align:center;font-weight:750;transition:transform .25s ease,box-shadow .25s ease;overflow:hidden;cursor:pointer;pointer-events:auto}
+    .social-grid a::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,.4),transparent 60%);transform:translateX(-100%);transition:transform .6s ease;pointer-events:none}
+    .social-grid a:hover{transform:translateY(-3px);box-shadow:0 20px 45px rgba(0,0,0,.1)}
     .social-grid a:hover::before{transform:translateX(100%)}
     .social-grid .whatsapp{background:#128c7e;color:#fff}
     .social-grid .call{background:#111;color:#fff}
@@ -257,766 +256,183 @@
     @keyframes rotateConic{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
     @keyframes ctaPulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.2);opacity:.8}}
 
-    /* ---------- Custom Cursor ---------- */
-    .cursor{position:fixed;left:0;top:0;width:28px;height:28px;border:2px solid rgba(255,255,255,.9);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s ease,height .2s ease,border-color .2s ease,background .2s ease;mix-blend-mode:difference;display:none}
-    .cursor.hover{width:56px;height:56px;border-color:var(--neon-cyan);background:rgba(0,240,255,.1);box-shadow:0 0 30px rgba(0,240,255,.3)}
-    .cursor.click{transform:translate(-50%,-50%) scale(.75)}
-    .cursor-glow{position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(0,240,255,.25) 0%,transparent 70%);opacity:0;transition:opacity .2s ease}
-    .cursor.hover .cursor-glow{opacity:1}
-    .cursor-trail{position:fixed;left:0;top:0;width:8px;height:8px;background:var(--neon-cyan);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);filter:blur(2px);opacity:.5;transition:opacity .15s ease;mix-blend-mode:screen;display:none}
-    @media(pointer:fine){.cursor,.cursor-trail{display:block}}
-
-    /* ---------- Magnetic Buttons ---------- */
-    .magnetic{transition:transform .2s cubic-bezier(.2,.8,.2,1)}
-
-    /* ---------- Ripple Effect ---------- */
-    .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.4);transform:scale(0);animation:rippleEffect .6s ease-out;pointer-events:none}
-    @keyframes rippleEffect{to{transform:scale(4);opacity:0}}
-
-    /* ---------- Text Decode ---------- */
-    .decode-char{display:inline-block;transition:transform .2s ease,color .2s ease;min-width:.25em}
-    .decode-char.locked{transform:translateY(0);color:inherit}
-    .decode-char.scrambling{transform:translateY(-4px);color:var(--neon-cyan)}
-    .decode-char.space{min-width:.28em}
-
-    /* ---------- Scroll Velocity Skew ---------- */
-    .velocity-skew{transition:transform .15s ease-out}
-
-    /* ---------- Spotlight on Cards ---------- */
-    .spotlight{position:relative;overflow:hidden}
-    .spotlight::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--mouse-x,50%) var(--mouse-y,50%),rgba(255,255,255,.18) 0%,transparent 50%);opacity:0;transition:opacity .3s ease;pointer-events:none;z-index:0}
-    .spotlight:hover::before{opacity:1}
-    .spotlight>*{position:relative;z-index:1}
-
-    /* ---------- Animated Gradient Border ---------- */
-    .gradient-border{position:relative;background:#fff;border-radius:24px;z-index:1}
-    .gradient-border::before{content:"";position:absolute;inset:-2px;border-radius:26px;background:linear-gradient(90deg,var(--blue),var(--neon-cyan),var(--neon-purple),var(--gold),var(--blue));background-size:300% 300%;z-index:-1;animation:borderFlow 4s ease infinite;opacity:0;transition:opacity .4s ease}
-    .gradient-border:hover::before{opacity:1}
-    @keyframes borderFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-
-    /* ---------- Animated Gradient Text ---------- */
-    .gradient-text{background:linear-gradient(90deg,var(--blue),var(--neon-cyan),var(--neon-purple),var(--blue));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:textShine 4s linear infinite}
-    @keyframes textShine{0%{background-position:0% 50%}100%{background-position:200% 50%}}
-
-    /* ---------- Parallax Images ---------- */
-    .parallax-img{transition:transform .1s linear}
-
-    /* ---------- Floating 3D Badges ---------- */
-    .float-badge{position:absolute;display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.12);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:13px;font-weight:650;box-shadow:0 10px 30px rgba(0,0,0,.2);animation:floatBadge 8s ease-in-out infinite alternate;pointer-events:none;z-index:4}
-    .float-badge svg{width:16px;height:16px}
-    .float-badge.b1{top:18%;right:12%;animation-delay:0s}
-    .float-badge.b2{top:34%;left:6%;animation-delay:-3s}
-    .float-badge.b3{bottom:26%;right:18%;animation-delay:-6s}
-    @keyframes floatBadge{0%{transform:translateZ(120px) translateY(0) rotateX(0)}100%{transform:translateZ(120px) translateY(-15px) rotateX(5deg)}}
-
-    /* ---------- Counter Animation ---------- */
-    .counter{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
-    .counter.visible{opacity:1;transform:none}
-
-    /* ---------- Glitch Hover ---------- */
-    .glitch-hover{position:relative;display:inline-block}
-    .glitch-hover::before,.glitch-hover::after{content:attr(data-text);position:absolute;left:0;top:0;width:100%;height:100%;opacity:0;pointer-events:none}
-    .glitch-hover::before{color:#ff00ff;clip-path:inset(0 0 50% 0);transform:translateX(-2px)}
-    .glitch-hover::after{color:#00ffff;clip-path:inset(50% 0 0 0);transform:translateX(2px)}
-    .glitch-hover:hover::before{animation:glitchTop .25s cubic-bezier(.25,.46,.45,.94) both infinite;opacity:.8}
-    .glitch-hover:hover::after{animation:glitchBottom .25s cubic-bezier(.25,.46,.45,.94) both infinite;opacity:.8}
-    @keyframes glitchTop{0%{transform:translateX(-2px)}20%{transform:translateX(2px)}40%{transform:translateX(-2px)}60%{transform:translateX(2px)}80%{transform:translateX(-1px)}100%{transform:translateX(0)}}
-    @keyframes glitchBottom{0%{transform:translateX(2px)}20%{transform:translateX(-2px)}40%{transform:translateX(2px)}60%{transform:translateX(-2px)}80%{transform:translateX(1px)}100%{transform:translateX(0)}}
-
-    /* ---------- Aurora Background ---------- */
-    .aurora-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
-    .aurora-bg::before{content:"";position:absolute;inset:-50%;background:conic-gradient(from 0deg at 50% 50%,transparent 0deg,var(--neon-cyan) 60deg,transparent 120deg,var(--neon-purple) 180deg,transparent 240deg,var(--blue) 300deg,transparent 360deg);opacity:.08;animation:auroraSpin 20s linear infinite;filter:blur(40px)}
-    @keyframes auroraSpin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
-
-    @media(max-width:980px){
-      .links a:nth-child(n+5){display:none}
-      .hero-panel{position:relative;right:auto;bottom:auto;margin:-78px auto 34px;width:min(720px,calc(100% - 32px));transform:translateZ(0)}
-      .quick,.feature,.cards,.story,.contact{grid-template-columns:1fr}
-      .metrics{grid-template-columns:repeat(2,1fr)}
-      .gallery-stage{display:none}
-      .gallery-mobile{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:210px;gap:14px}
-      .feature-media{min-height:390px}
-      .hero-scene{transform:none!important}
-      .flip-card{min-height:360px}
-    }
-    @media(max-width:620px){
-      .links a:nth-child(n+2){display:none}
-      .hero-content{padding:62px 0 98px}
-      .actions{flex-direction:column;align-items:stretch}
-      .btn{width:100%}
-      .quick,.metrics,.gallery-mobile,.social-grid{grid-template-columns:1fr}
-      .story-photo,.story-copy,.dark-stage{min-height:480px;padding:28px}
-      .float{left:12px;right:12px}
-      .float a{flex:1;padding:0 8px}
-      footer{display:block}
-      .orb,.blob-wrap,.float-badge{display:none}
-      .flip-card{min-height:320px}
-      .flip-card-inner{transition:transform .6s cubic-bezier(.2,.8,.2,1)}
-    }
-    @media(prefers-reduced-motion:reduce){
-      *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-      .reveal{opacity:1;transform:none;filter:none}
-      .hero-scene{transform:none!important}
-      .cursor,.cursor-trail,.preloader{display:none!important}
-    }
+    @media(max-width:980px){.links a:nth-child(n+5){display:none}.hero-panel{position:relative;right:auto;bottom:auto;margin:-40px auto 30px;width:min(720px,calc(100% - 32px))}.quick,.feature,.cards,.story,.contact{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}.gallery-stage{display:none}.gallery-mobile{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:210px;gap:14px}.feature-media{min-height:390px}}
+    @media(max-width:620px){.links a:nth-child(n+2){display:none}.hero-content{padding:62px 0 98px}.actions{flex-direction:column;align-items:stretch}.btn{width:100%}.quick,.metrics,.gallery-mobile,.social-grid{grid-template-columns:1fr}.story-photo,.story-copy,.dark-stage{min-height:480px;padding:28px}.float{left:12px;right:12px}.float a{flex:1;padding:0 8px}footer{display:block}.orb,.blob-wrap,.float-badge{display:none}.gallery-mobile{grid-template-columns:1fr}}
+    :focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none;filter:none}}
   </style>
 </head>
 <body>
-  <div class="preloader" id="preloader"><div class="preloader-ring"></div><div class="preloader-logo">ARYAN</div></div>
-  <div class="progress-bar" aria-hidden="true"></div>
-  <div class="cursor" id="cursor" aria-hidden="true"><div class="cursor-glow"></div></div>
-  <div class="cursor-trail" id="cursorTrail" aria-hidden="true"></div>
-
-  <nav class="nav" id="navbar">
-    <div class="nav-inner">
-      <a class="brand" href="#top">Aryan College</a>
-      <div class="links">
-        <a href="#academics">Academics</a>
-        <a href="#admissions">Admissions</a>
-        <a href="#campus">Campus</a>
-        <a href="#contact">Contact</a>
-        <a class="erp-pill" href="https://eric.aryancollege.in/main/login">ERP</a>
-        <a class="nav-pill" href="https://docs.google.com/forms/d/e/1FAIpQLSfm3rtq2xB3L7jVHgNk_4P4R8KAoGXpTmDgdpxuxGIn_NICQg/viewform">Apply</a>
-      </div>
-    </div>
-  </nav>
-
-  <main id="top">
-    <header class="hero perspective">
-      <div class="hero-scene preserve" id="heroScene">
-        <div class="hero-media-layer"></div>
-        <div class="hero-sheen"></div>
-        <canvas class="hero-particles" id="heroParticles" aria-hidden="true"></canvas>
-        <div class="hero-vignette"></div>
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
-      </div>
-      <div class="blob-wrap">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-      </div>
-      <div class="float-badge b1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg> Top Ranked</div>
-      <div class="float-badge b2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Since 2004</div>
-      <div class="float-badge b3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> 5000+ Alumni</div>
-      <div class="hero-content">
-        <p class="kicker">Ajmer, Rajasthan</p>
-        <h1 class="hero-headline decode-text" id="heroHeadline">Designed for ambition. Built for futures.</h1>
-        <p class="hero-copy">A premium digital home for Aryan College, crafted to make admissions, academics, student life, and outcomes feel clear, confident, and inspiring.</p>
-        <div class="actions">
-          <a class="btn primary" href="https://docs.google.com/forms/d/e/1FAIpQLSfm3rtq2xB3L7jVHgNk_4P4R8KAoGXpTmDgdpxuxGIn_NICQg/viewform">Apply for Admission</a>
-          <a class="btn" href="https://wa.me/919929999981">Chat on WhatsApp</a>
-          <a class="btn call-btn" href="tel:+919929999981">📞 Call Now</a>
-        </div>
-      </div>
-      <div class="hero-panel">
-        <strong>One page. Every next step.</strong>
-        <span>Admissions, fee payment, ERP, programs, gallery, placements, and social channels are now arranged for fast decisions.</span>
-      </div>
-    </header>
-
-    <div class="quick">
-      <a class="spotlight" href="https://forms.eduqfix.com/aryaneds/add"><b>Online Fee Payment</b><span>Fast access for students and parents.</span></a>
-      <a class="spotlight" href="https://sites.google.com/aryancollege.in/intranet/home"><b>Student Intranet</b><span>Internal resources, updates, and links.</span></a>
-      <a class="spotlight" href="https://aryancollege.in/wp-content/uploads/2018/06/ARYAN-COLLEGE-admission-Form-updated.pdf"><b>Admission Form</b><span>Download the form instantly.</span></a>
-      <a class="spotlight" href="https://aryancollege.in/syllabus/"><b>Syllabus</b><span>Academic references in one click.</span></a>
-    </div>
-
-    <section class="feature gradient-border holo">
-      <div class="feature-copy">
-        <p class="kicker" style="color:var(--blue)">A modern campus experience</p>
-        <h2>Shaping future-ready learners with purpose and confidence.</h2>
-        <p>Aryan College offers a strong academic foundation, guided admissions support, vibrant campus life, and career-focused opportunities that help students grow with clarity and direction.</p>
-        <div class="actions">
-          <a class="btn blue" href="about-aryan-redesign.html">Explore Aryan</a>
-          <a class="btn" style="border-color:rgba(0,113,227,.35);color:var(--blue)" href="https://aryancollege.in/contact-us/">Contact Office</a>
-        </div>
-      </div>
-      <div class="feature-media" aria-label="Aryan College student event"></div>
-    </section>
-
-    <section>
-      <div class="metrics">
-        <div class="metric spotlight"><strong>01</strong><span>Apply Online</span></div>
-        <div class="metric spotlight"><strong>02</strong><span>Pay Fees</span></div>
-        <div class="metric spotlight"><strong>03</strong><span>Use ERP</span></div>
-        <div class="metric spotlight"><strong>04</strong><span>Explore Campus</span></div>
-      </div>
-    </section>
-
-    <section id="academics">
-      <div class="section-head">
-        <h2 class="gradient-text">Academics with a clear path.</h2>
-        <p>Programs, departments, teaching teams, and student resources are organized into simple choices that feel easy to trust.</p>
-      </div>
-      <div class="cards">
-        <a class="flip-card" href="https://aryancollege.in/programs/">
-          <div class="flip-card-inner">
-            <div class="flip-card-front spotlight">
-              <div><h3>Programs</h3><p>Present the available study options in a way prospective students can understand immediately.</p></div>
-              <span style="color:var(--blue);font-weight:700">View programs →</span>
-            </div>
-            <div class="flip-card-back">
-              <div class="flip-icon">🎓</div>
-              <h3>Programs</h3>
-              <p>Explore undergraduate, postgraduate, and professional courses designed for real-world success.</p>
-            </div>
-          </div>
-        </a>
-        <a class="flip-card" href="https://aryancollege.in/departments/">
-          <div class="flip-card-inner">
-            <div class="flip-card-front spotlight">
-              <div><h3>Departments</h3><p>Show academic structure, focus areas, and institutional strengths without a crowded menu.</p></div>
-              <span style="color:var(--blue);font-weight:700">Explore departments →</span>
-            </div>
-            <div class="flip-card-back">
-              <div class="flip-icon">🏛️</div>
-              <h3>Departments</h3>
-              <p>Science, Commerce, Arts, and Management departments led by experienced faculty.</p>
-            </div>
-          </div>
-        </a>
-        <a class="flip-card" href="https://aryancollege.in/andragogy/">
-          <div class="flip-card-inner">
-            <div class="flip-card-front spotlight">
-              <div><h3>Learning Approach</h3><p>Highlight Aryan's approach to student-centered learning and practical development.</p></div>
-              <span style="color:var(--blue);font-weight:700">Learn more →</span>
-            </div>
-            <div class="flip-card-back">
-              <div class="flip-icon">💡</div>
-              <h3>Learning Approach</h3>
-              <p>Blended teaching, projects, seminars, and industry exposure for holistic growth.</p>
-            </div>
-          </div>
-        </a>
-      </div>
-    </section>
-
-    <section id="admissions" class="story">
-      <div class="story-photo">
-        <h2>Admissions that feel effortless.</h2>
-        <p>The homepage now leads visitors to enquiry, application, fee payment, and downloadable forms without confusion.</p>
-      </div>
-      <div class="story-copy">
-        <div>
-          <h2>A guided journey for every visitor.</h2>
-          <div class="journey">
-            <div class="step"><b>1</b><div><h3>Discover</h3><p>Learn about programs, campus life, and outcomes.</p></div></div>
-            <div class="step"><b>2</b><div><h3>Apply</h3><p>Submit enquiry or admission forms from prominent buttons.</p></div></div>
-            <div class="step"><b>3</b><div><h3>Connect</h3><p>Use WhatsApp, call, Instagram, Facebook, or YouTube directly.</p></div></div>
-          </div>
-        </div>
-        <div class="actions">
-          <a class="btn blue" href="https://docs.google.com/forms/d/e/1FAIpQLScRHy64x0IQHtuoq-TOYMTNDdulp3-7i9LHnhZBb0Wm5elkVA/viewform">Admission Enquiry</a>
-          <a class="btn" style="border-color:rgba(0,113,227,.35);color:var(--blue)" href="https://docs.google.com/forms/d/e/1FAIpQLSfm3rtq2xB3L7jVHgNk_4P4R8KAoGXpTmDgdpxuxGIn_NICQg/viewform">Apply Now</a>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="dark-stage">
-        <div class="aurora-bg"></div>
-        <h2>Placements, careers, and self-actualization in one powerful story.</h2>
-        <p>Student outcomes are treated as a central promise of the college experience, with direct links for placements and careers.</p>
-        <div class="actions">
-          <a class="btn primary" href="https://aryancollege.in/placements/">Placements</a>
-          <a class="btn" href="https://aryancollege.in/careers/">Careers</a>
-          <a class="btn" href="https://aryancollege.in/self-actualization/">Self Actualization</a>
-        </div>
-      </div>
-    </section>
-
-    <section id="campus">
-      <div class="section-head">
-        <h2 class="gradient-text">Campus life with cinematic energy.</h2>
-        <p>Events, activities, gallery moments, publications, and student life now feel visual, alive, and memorable.</p>
-      </div>
-      <div class="gallery-stage">
-        <div class="gallery-carousel" id="galleryCarousel">
-          <a class="gallery-item" href="https://aryancollege.in/multimedia/gallery/" data-index="0"><img src="https://aryancollege.in/wp-content/uploads/2022/03/IMG_0383.jpg" alt="Aryan College event scene"></a>
-          <a class="gallery-item" href="https://aryancollege.in/multimedia/gallery/" data-index="1"><img src="https://aryancollege.in/wp-content/uploads/2022/03/DSC0369.jpg" alt="Aryan College auditorium scene"></a>
-          <a class="gallery-item" href="https://aryancollege.in/multimedia/gallery/" data-index="2"><img src="https://aryancollege.in/wp-content/uploads/2022/03/IMG_6802.jpg" alt="Aryan College student activity"></a>
-          <a class="gallery-item" href="https://aryancollege.in/multimedia/gallery/" data-index="3"><img src="https://aryancollege.in/wp-content/uploads/2022/03/DSC0610.jpg" alt="Aryan College group moment"></a>
-          <a class="gallery-item" href="https://aryancollege.in/multimedia/gallery/" data-index="4"><img src="https://aryancollege.in/wp-content/uploads/2022/03/IMG_6818.jpg" alt="Aryan College ceremony"></a>
-        </div>
-        <div class="gallery-controls">
-          <button class="gallery-nav" id="galleryPrev" aria-label="Previous image">←</button>
-          <div id="galleryDots"></div>
-          <button class="gallery-nav" id="galleryNext" aria-label="Next image">→</button>
-        </div>
-      </div>
-      <div class="gallery-mobile" style="display:none">
-        <a href="https://aryancollege.in/multimedia/gallery/"><img src="https://aryancollege.in/wp-content/uploads/2022/03/IMG_0383.jpg" alt="Aryan College event scene"></a>
-        <a href="https://aryancollege.in/multimedia/gallery/"><img src="https://aryancollege.in/wp-content/uploads/2022/03/DSC0369.jpg" alt="Aryan College auditorium scene"></a>
-        <a href="https://aryancollege.in/multimedia/gallery/"><img src="https://aryancollege.in/wp-content/uploads/2022/03/IMG_6802.jpg" alt="Aryan College student activity"></a>
-        <a href="https://aryancollege.in/multimedia/gallery/"><img src="https://aryancollege.in/wp-content/uploads/2022/03/DSC0610.jpg" alt="Aryan College group moment"></a>
-        <a href="https://aryancollege.in/multimedia/gallery/"><img src="https://aryancollege.in/wp-content/uploads/2022/03/IMG_6818.jpg" alt="Aryan College ceremony"></a>
-      </div>
-    </section>
-
-    <section id="contact" class="contact">
-      <div class="contact-card spotlight">
-        <h2>Connect instantly.</h2>
-        <p>For admissions and general enquiries, students and parents can reach Aryan College through phone, WhatsApp, and social media.</p>
-        <div class="actions">
-          <a class="btn blue" href="tel:+919929999981">Call 9929999981</a>
-          <a class="btn" style="border-color:rgba(0,113,227,.35);color:var(--blue)" href="https://wa.me/919929999981">WhatsApp</a>
-        </div>
-      </div>
-      <div class="contact-card spotlight">
-        <h2>Social channels.</h2>
-        <div class="social-grid">
-          <a class="social-link instagram" href="https://www.instagram.com/aryancollegeofficial" target="_blank" rel="noopener">
-            <span aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.8"></rect><circle cx="12" cy="12" r="4.3" stroke="currentColor" stroke-width="1.8"></circle><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"></circle></svg></span>
-            <span>Instagram</span>
-          </a>
-          <a class="social-link facebook" href="https://www.facebook.com/shekhawatamarpal" target="_blank" rel="noopener">
-            <span aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M14 8h2V5h-3c-2.8 0-4 1.6-4 4.2V10H7v3h2v7h3v-7h2.5l.5-3H12V7.4c0-.8.2-1.4 1.3-1.4Z"></path></svg></span>
-            <span>Facebook</span>
-          </a>
-          <a class="social-link youtube" href="https://www.youtube.com/user/dreamsifyoucan" target="_blank" rel="noopener">
-            <span aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M21.6 7.2a2.7 2.7 0 0 0-1.9-1.9C18.2 4.8 12 4.8 12 4.8s-6.2 0-7.7.5A2.7 2.7 0 0 0 2.4 7.2 28.7 28.7 0 0 0 2 12a28.7 28.7 0 0 0 .4 4.8 2.7 2.7 0 0 0 1.9 1.9c1.5.5 7.7.5 7.7.5s6.2 0 7.7-.5a2.7 2.7 0 0 0 1.9-1.9c.4-1.6.4-3.2.4-4.8s0-3.2-.4-4.8ZM10 15.5v-7l6 3.5-6 3.5Z"></path></svg></span>
-            <span>YouTube</span>
-          </a>
-          <a class="whatsapp" href="https://wa.me/919929999981" target="_blank" rel="noopener">
-            <span aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 3.5a8.5 8.5 0 0 0-7.3 13.1L3 20.5l4.4-1.1A8.5 8.5 0 1 0 12 3.5Zm0 15.2a7 7 0 0 1-3.6-.95l-.3-.2-2.6.65.65-2.5-.2-.3A7 7 0 1 1 12 18.7Z"></path></svg></span>
-            <span>WhatsApp</span>
-          </a>
-          <a class="call" href="tel:+919929999981">Call</a>
-          <a class="social-link erp" href="https://eric.aryancollege.in/main/login" target="_blank" rel="noopener">ERP</a>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="final-cta holo">
-        <div>
-          <h2>Ready for admission.</h2>
-          <p>A polished first impression for students, parents, faculty, and leadership.</p>
-          <div class="actions" style="justify-content:center">
-            <a class="btn primary" href="https://docs.google.com/forms/d/e/1FAIpQLSfm3rtq2xB3L7jVHgNk_4P4R8KAoGXpTmDgdpxuxGIn_NICQg/viewform">Apply Here</a>
-            <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLScRHy64x0IQHtuoq-TOYMTNDdulp3-7i9LHnhZBb0Wm5elkVA/viewform">Ask a Question</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div>Premium 3D redesign for Aryan College, Ajmer.</div>
-    <div>
-      <a class="glitch-hover" data-text="Original site" href="https://aryancollege.in/">Original site</a> |
-      <a class="glitch-hover" data-text="Instagram" href="https://www.instagram.com/aryancollegeofficial">Instagram</a> |
-      <a class="glitch-hover" data-text="Facebook" href="https://www.facebook.com/shekhawatamarpal">Facebook</a> |
-      <a class="glitch-hover" data-text="YouTube" href="https://www.youtube.com/user/dreamsifyoucan">YouTube</a>
-    </div>
-  </footer>
-
-  <div class="float">
-    <a class="whatsapp" href="https://wa.me/919929999981" target="_blank" rel="noopener">WhatsApp</a>
-    <a class="call" href="tel:+919929999981" aria-label="Call now"><span aria-hidden="true">📞</span></a>
-  </div>
-
-  <script>
-    /* ---------- Preloader ---------- */
-    window.addEventListener('load', () => {
-      const preloader = document.getElementById('preloader');
-      if (preloader) {
-        setTimeout(() => preloader.classList.add('hidden'), 1200);
+<nav class="nav" id="navbar"><div class="nav-inner"><a class="brand" href="#top">Aryan College</a><div class="links"><a href="#academics">Academics</a><a href="#admissions">Admissions</a><a href="#campus">Campus</a><a href="gallery.html">Gallery</a><a href="#contact">Contact</a><a class="erp-pill" href="https://eric.aryancollege.in/main/login">ERP</a><a class="nav-pill" href="https://docs.google.com/forms/d/e/1FAIpQLSfm3rtq2xB3L7jVHgNk_4P4R8KAoGXpTmDgdpxuxGIn_NICQg/viewform">Apply</a></div></div></nav>
+<div class="progress-bar" aria-hidden="true"></div>
+<main id="top">
+  <header class="hero"><div class="hero-media-layer"></div><div class="hero-vignette"></div><div class="hero-content"><p class="kicker">Ajmer, Rajasthan</p><h1 class="hero-headline" id="heroHeadline">Designed for ambition. Built for futures.</h1><p class="hero-copy">A premium digital home for Aryan College, crafted to make admissions, academics, student life, and outcomes feel clear, confident, and inspiring.</p><div class="actions"><a class="btn primary" href="https://docs.google.com/forms/d/e/1FAIpQLSfm3rtq2xB3L7jVHgNk_4P4R8KAoGXpTmDgdpxuxGIn_NICQg/viewform">Apply for Admission</a><a class="btn" href="https://wa.me/919929999981">Chat on WhatsApp</a><a class="btn call-btn" href="tel:+919929999981">Call Now</a></div></div><div class="hero-panel"><strong>One page. Every next step.</strong><span>Admissions, fee payment, ERP, programs, gallery, placements, and social channels are arranged for fast decisions.</span></div></header>
+  <div class="quick"><a href="https://forms.eduqfix.com/aryaneds/add"><b>Online Fee Payment</b><span>Fast access for students and parents.</span></a><a href="https://sites.google.com/aryancollege.in/intranet/home"><b>Student Intranet</b><span>Internal resources, updates, and links.</span></a><a href="https://aryancollege.in/wp-content/uploads/2018/06/ARYAN-COLLEGE-admission-Form-updated.pdf"><b>Admission Form</b><span>Download the form instantly.</span></a><a href="https://aryancollege.in/syllabus/"><b>Syllabus</b><span>Academic references in one click.</span></a></div>
+  <section class="feature"><div class="feature-copy"><p class="kicker">A modern campus experience</p><h2>Shaping future-ready learners with purpose and confidence.</h2><p>Aryan College offers a strong academic foundation, guided admissions support, vibrant campus life, and career-focused opportunities.</p><div class="actions"><a class="btn blue" href="https://aryancollege.in/about-us/">Explore Aryan</a><a class="btn" href="https://aryancollege.in/contact-us/">Contact Office</a></div></div><div class="feature-media" aria-label="Aryan College student event"></div></section>
+  <section><div class="metrics"><div class="metric"><strong>01</strong><span>Apply Online</span></div><div class="metric"><strong>02</strong><span>Pay Fees</span></div><div class="metric"><strong>03</strong><span>Use ERP</span></div><div class="metric"><strong>04</strong><span>Explore Campus</span></div></div></section>
+  <section id="academics"><div class="section-head"><h2 class="gradient-text">Academics with a clear path.</h2><p>Programs, departments, teaching teams, and student resources in simple choices.</p></div><div class="cards"><a class="card" href="https://aryancollege.in/programs/"><h3>Programs</h3><p>Explore undergraduate, postgraduate, and professional courses.</p><span>View programs →</span></a><a class="card" href="https://aryancollege.in/departments/"><h3>Departments</h3><p>Science, Commerce, Arts, and Management led by experienced faculty.</p><span>Explore departments →</span></a><a class="card" href="https://aryancollege.in/andragogy/"><h3>Learning Approach</h3><p>Blended teaching, projects, seminars, and industry exposure.</p><span>Learn more →</span></a></div></section>
+  <section id="admissions" class="story"><div class="story-photo"><h2>Admissions that feel effortless.</h2><p>Find enquiry, application, fee payment, and forms without confusion.</p></div><div class="story-copy"><h2>A guided journey for every visitor.</h2><div class="journey"><div class="step"><b>1</b><div><h3>Discover</h3><p>Learn about programs, campus life, and outcomes.</p></div></div><div class="step"><b>2</b><div><h3>Apply</h3><p>Submit enquiry or admission forms online.</p></div></div><div class="step"><b>3</b><div><h3>Connect</h3><p>Call or message the college directly.</p></div></div></div><div class="actions"><a class="btn blue" href="https://docs.google.com/forms/d/e/1FAIpQLScRHy64x0IQHtuoq-TOYMTNDdulp3-7i9LHnhZBb0Wm5elkVA/viewform">Admission Enquiry</a></div></div></section>
+  <section><div class="dark-stage"><h2>Placements, careers, and self-actualization.</h2><p>Explore student outcomes and career opportunities.</p><div class="actions"><a class="btn primary" href="https://aryancollege.in/placements/">Placements</a><a class="btn" href="https://aryancollege.in/careers/">Careers</a></div></div></section>
+  <section id="campus"><div class="section-head"><h2 class="gradient-text">Campus life with cinematic energy.</h2><p>Events, activities, gallery moments, and student life.</p><a class="btn blue" href="gallery.html">Explore full photo gallery →</a></div><div class="gallery-stage"><div class="gallery-carousel" id="galleryCarousel"><a class="gallery-item" href="https://aryancollege.in/multimedia/gallery/"><img src="https://aryancollege.in/wp-content/uploads/2022/03/IMG_0383.jpg" alt="Aryan College event scene" fetchpriority="high"></a><a class="gallery-item" href="https://aryancollege.in/multimedia/gallery/"><img loading="lazy" decoding="async" src="https://aryancollege.in/wp-content/uploads/2022/03/DSC0369.jpg" alt="College auditorium"></a><a class="gallery-item" href="https://aryancollege.in/multimedia/gallery/"><img loading="lazy" decoding="async" src="https://aryancollege.in/wp-content/uploads/2022/03/IMG_6802.jpg" alt="Student activity"></a><a class="gallery-item" href="https://aryancollege.in/multimedia/gallery/"><img loading="lazy" decoding="async" src="https://aryancollege.in/wp-content/uploads/2022/03/DSC0610.jpg" alt="College group moment"></a><a class="gallery-item" href="https://aryancollege.in/multimedia/gallery/"><img loading="lazy" decoding="async" src="https://aryancollege.in/wp-content/uploads/2022/03/IMG_6818.jpg" alt="College ceremony"></a></div><div class="gallery-controls"><button class="gallery-nav" id="galleryPrev" aria-label="Previous image">←</button><div id="galleryDots"></div><button class="gallery-nav" id="galleryNext" aria-label="Next image">→</button></div></div><div class="gallery-mobile"><img loading="lazy" decoding="async" src="https://aryancollege.in/wp-content/uploads/2022/03/IMG_0383.jpg" alt="College event"><img loading="lazy" decoding="async" src="https://aryancollege.in/wp-content/uploads/2022/03/DSC0369.jpg" alt="College auditorium"><img loading="lazy" decoding="async" src="https://aryancollege.in/wp-content/uploads/2022/03/IMG_6802.jpg" alt="Student activity"></div></section>
+  <section id="contact" class="contact"><div class="contact-card"><h2>Connect instantly.</h2><p>Reach Aryan College through phone and WhatsApp.</p><div class="actions"><a class="btn blue" href="tel:+919929999981">Call 9929999981</a><a class="btn whatsapp-btn" href="https://wa.me/919929999981" aria-label="Chat with Aryan College on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.52 3.48A11.82 11.82 0 0 0 12.09 0C5.53 0 .19 5.34.19 11.9c0 2.1.55 4.15 1.6 5.96L.09 24l6.29-1.65a11.88 11.88 0 0 0 5.7 1.45h.01c6.56 0 11.9-5.34 11.9-11.9 0-3.18-1.24-6.17-3.47-8.42ZM12.09 21.8h-.01a9.88 9.88 0 0 1-5.03-1.37l-.36-.21-3.73.98.99-3.64-.24-.37a9.86 9.86 0 0 1-1.52-5.29c0-5.46 4.45-9.9 9.91-9.9a9.82 9.82 0 0 1 7 2.9 9.82 9.82 0 0 1 2.9 7c0 5.46-4.45 9.9-9.91 9.9Zm5.43-7.41c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.21 5.09 4.5.71.31 1.27.5 1.7.64.71.23 1.36.2 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z"/></svg><span>WhatsApp</span></a></div></div><div class="contact-card"><h2>Social channels.</h2><div class="social-grid"><a class="instagram" href="https://www.instagram.com/aryancollegeofficial/">Instagram</a><a class="facebook" href="https://www.facebook.com/shekhawatamarpal">Facebook</a><a class="youtube" href="https://www.youtube.com/user/dreamsifyoucan">YouTube</a><a class="whatsapp" href="https://wa.me/919929999981">WhatsApp</a><a class="call" href="tel:+919929999981">Call</a><a class="erp" href="https://eric.aryancollege.in/main/login">ERP</a></div></div></section>
+  <section><div class="final-cta"><div><h2>Ready for admission.</h2><p>A polished first impression for students, parents, faculty, and leadership.</p><div class="actions" style="justify-content:center"><a class="btn primary" href="https://docs.google.com/forms/d/e/1FAIpQLSfm3rtq2xB3L7jVHgNk_4P4R8KAoGXpTmDgdpxuxGIn_NICQg/viewform">Apply Here</a><a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLScRHy64x0IQHtuoq-TOYMTNDdulp3-7i9LHnhZBb0Wm5elkVA/viewform">Ask a Question</a></div></div></div></section>
+</main>
+<footer><div>Aryan College, Ajmer.</div><div><a href="https://aryancollege.in/">Original site</a> | <a href="https://www.instagram.com/aryancollegeofficial">Instagram</a></div></footer>
+<div class="float"><a class="whatsapp" href="https://wa.me/919929999981">WhatsApp</a><a class="call" href="tel:+919929999981" aria-label="Call now">Call</a></div>
+<script>
+  const items = document.querySelectorAll('section, .quick a, .metric, .hero-panel');
+  const observer = new IntersectionObserver(entries => entries.forEach(entry => { if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target)} }), {threshold:.12});
+  items.forEach(item => item.classList.add('reveal')); items.forEach(item => observer.observe(item));
+  const progressBar=document.querySelector('.progress-bar'), navbar=document.getElementById('navbar');
+  let ticking=false; window.addEventListener('scroll',()=>{if(ticking)return;ticking=true;requestAnimationFrame(()=>{const y=window.scrollY,h=document.documentElement.scrollHeight-innerHeight;progressBar.style.width=(h?y/h*100:0)+'%';navbar.classList.toggle('scrolled',y>24);ticking=false})},{passive:true});
+  /* ---------- Text Decode Animation with proper spacing ---------- */
+  const decodeText = document.querySelector('.decode-text');
+  if (decodeText && window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    const originalText = decodeText.textContent;
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&';
+    decodeText.innerHTML = originalText.split('').map((char, i) => {
+      const isSpace = char === ' ';
+      const display = isSpace ? '&nbsp;' : char;
+      return `<span class="decode-char ${isSpace ? 'space' : ''}" data-index="${i}" data-char="${char}">${display}</span>`;
+    }).join('');
+    const decodeChars = decodeText.querySelectorAll('.decode-char');
+    let iteration = 0;
+    const maxIterations = 15;
+    const interval = setInterval(() => {
+      decodeChars.forEach((span, i) => {
+        if (i < iteration * 1.5) {
+          span.innerHTML = span.dataset.char === ' ' ? '&nbsp;' : span.dataset.char;
+          span.classList.add('locked');
+          span.classList.remove('scrambling');
+        } else if (span.dataset.char !== ' ') {
+          span.textContent = chars[Math.floor(Math.random() * chars.length)];
+          span.classList.add('scrambling');
+        }
+      });
+      iteration++;
+      if (iteration > maxIterations) {
+        clearInterval(interval);
+        decodeChars.forEach(span => {
+          span.innerHTML = span.dataset.char === ' ' ? '&nbsp;' : span.dataset.char;
+          span.classList.add('locked');
+          span.classList.remove('scrambling');
+        });
+        setTimeout(() => {
+          decodeText.classList.add('decoded');
+        }, 400);
       }
-    });
+    }, 70);
+  }
 
-    /* ---------- Scroll Reveal ---------- */
-    const items = document.querySelectorAll('section, .quick a, .metric, .flip-card, .step, .gallery a, .contact-card, .final-cta, .feature-media, .hero-panel, .section-head');
-    items.forEach((item, index) => item.classList.add('reveal', 'delay-' + ((index % 5) + 1)));
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
+  /* ---------- Kinetic Typography for Hero Headline ---------- */
+  const heroHeadline = document.getElementById('heroHeadline');
+  if (heroHeadline && window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    const words = heroHeadline.textContent.split(' ');
+    heroHeadline.innerHTML = words.map(word => `<span class="word">${word.split('').map(char => `<span class="char">${char === ' ' ? '&nbsp;' : char}</span>`).join('')}</span>`).join(' ');
+    const headlineChars = heroHeadline.querySelectorAll('.char');
+    headlineChars.forEach(char => {
+      char.addEventListener('pointerenter', () => {
+        char.style.transform = 'translateZ(40px) rotateY(20deg) scale(1.2)';
+        char.style.color = 'var(--neon-cyan)';
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
-    items.forEach(item => observer.observe(item));
-
-    /* ---------- Progress Bar + Nav Active State + Scroll Hide ---------- */
-    const progressBar = document.querySelector('.progress-bar');
-    const navLinks = [...document.querySelectorAll('.links a[href^="#"]')];
-    const sections = [...document.querySelectorAll('main section[id], main header.hero')];
-    const navbar = document.getElementById('navbar');
-    let lastScrollY = 0;
-
-    const updateScroll = () => {
-      const scrollTop = window.scrollY;
-      const height = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = height > 0 ? (scrollTop / height) * 100 : 0;
-      if (progressBar) progressBar.style.width = progress + '%';
-
-      document.body.classList.toggle('scrolled', scrollTop > 24);
-      navbar.classList.toggle('scrolled', scrollTop > 24);
-      navbar.classList.toggle('hide', scrollTop > lastScrollY && scrollTop > 120);
-      lastScrollY = scrollTop;
-
-      const currentSection = sections.slice().reverse().find(section => scrollTop >= section.offsetTop - 140);
-      navLinks.forEach(link => {
-        const id = link.getAttribute('href');
-        link.classList.toggle('active', currentSection && id === `#${currentSection.id}`);
-      });
-    };
-    updateScroll();
-    window.addEventListener('scroll', updateScroll, { passive: true });
-    window.addEventListener('resize', updateScroll);
-
-    /* ---------- 3D Hero Parallax Mouse Tilt ---------- */
-    const heroScene = document.getElementById('heroScene');
-    const heroMedia = document.querySelector('.hero-media-layer');
-    let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
-
-    if (heroScene && window.matchMedia('(prefers-reduced-motion: no-preference)').matches && window.innerWidth > 620) {
-      window.addEventListener('pointermove', e => {
-        const x = (e.clientX / window.innerWidth - 0.5) * 2;
-        const y = (e.clientY / window.innerHeight - 0.5) * 2;
-        targetX = x * 6;
-        targetY = -y * 6;
-        if (heroMedia) {
-          const bgX = x * 18;
-          const bgY = y * 18;
-          heroMedia.style.backgroundPosition = `calc(50% + ${bgX}px) calc(50% + ${bgY}px)`;
-        }
-      }, { passive: true });
-
-      const animateHero = () => {
-        mouseX += (targetX - mouseX) * 0.06;
-        mouseY += (targetY - mouseY) * 0.06;
-        heroScene.style.transform = `rotateY(${mouseX}deg) rotateX(${mouseY}deg)`;
-        requestAnimationFrame(animateHero);
-      };
-      animateHero();
-    }
-
-    /* ---------- 3D Tilt for Cards & Quick Links ---------- */
-    const tiltTargets = document.querySelectorAll('.card, .quick a, .metric, .contact-card');
-    tiltTargets.forEach(el => {
-      el.addEventListener('pointermove', e => {
-        const rect = el.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const cx = rect.width / 2;
-        const cy = rect.height / 2;
-        const rx = ((y - cy) / cy) * -8;
-        const ry = ((x - cx) / cx) * 8;
-        el.style.transform = `translateY(-8px) translateZ(30px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
-      });
-      el.addEventListener('pointerleave', () => {
-        el.style.transform = '';
+      char.addEventListener('pointerleave', () => {
+        char.style.transform = '';
+        char.style.color = '';
       });
     });
+  }
 
-    /* ---------- WebGL Particle Canvas ---------- */
-    const canvas = document.getElementById('heroParticles');
-    if (canvas && window.matchMedia('(prefers-reduced-motion: no-preference)').matches && window.innerWidth > 620) {
-      const ctx = canvas.getContext('2d');
-      let particles = [];
-      const particleCount = 80;
+  /* ---------- Spotlight Effect on Cards ---------- */
+  document.querySelectorAll('.spotlight').forEach(el => {
+    el.addEventListener('pointermove', e => {
+      const rect = el.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      el.style.setProperty('--mouse-x', x + '%');
+      el.style.setProperty('--mouse-y', y + '%');
+    });
+  });
 
-      const resizeCanvas = () => {
-        const hero = canvas.closest('.hero');
-        canvas.width = hero.offsetWidth;
-        canvas.height = hero.offsetHeight;
-      };
-      resizeCanvas();
-      window.addEventListener('resize', resizeCanvas);
-
-      class Particle {
-        constructor() {
-          this.reset();
-        }
-        reset() {
-          this.x = Math.random() * canvas.width;
-          this.y = Math.random() * canvas.height;
-          this.z = Math.random() * 2 + 0.5;
-          this.size = Math.random() * 2 + 0.5;
-          this.speedX = (Math.random() - 0.5) * 0.5;
-          this.speedY = (Math.random() - 0.5) * 0.5;
-          this.opacity = Math.random() * 0.5 + 0.2;
-        }
-        update() {
-          this.x += this.speedX;
-          this.y += this.speedY;
-          if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
-        }
-        draw() {
-          const scale = 1 + this.z * 0.5;
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.size * scale, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity * scale})`;
-          ctx.fill();
-        }
-      }
-
-      for (let i = 0; i < particleCount; i++) particles.push(new Particle());
-
-      const drawParticles = () => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => { p.update(); p.draw(); });
-
-        for (let i = 0; i < particles.length; i++) {
-          for (let j = i + 1; j < particles.length; j++) {
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 120) {
-              ctx.beginPath();
-              ctx.moveTo(particles[i].x, particles[i].y);
-              ctx.lineTo(particles[j].x, particles[j].y);
-              ctx.strokeStyle = `rgba(255, 255, 255, ${0.08 * (1 - dist / 120)})`;
-              ctx.lineWidth = 0.5;
-              ctx.stroke();
+  /* ---------- Animated Counter ---------- */
+  const counters = document.querySelectorAll('.metric strong');
+  const counterObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        el.classList.add('counter', 'visible');
+        const original = el.textContent;
+        const target = parseInt(original);
+        if (!isNaN(target)) {
+          let current = 0;
+          const duration = 1500;
+          const step = target / (duration / 16);
+          const countUp = () => {
+            current += step;
+            if (current < target) {
+              el.textContent = Math.ceil(current).toString().padStart(2, '0');
+              requestAnimationFrame(countUp);
+            } else {
+              el.textContent = original;
             }
-          }
+          };
+          countUp();
         }
-        requestAnimationFrame(drawParticles);
-      };
-      drawParticles();
-    }
-
-    /* ---------- Smooth Reveal for Hero Content ---------- */
-    const heroContent = document.querySelector('.hero-content');
-    if (heroContent) {
-      heroContent.style.opacity = '0';
-      heroContent.style.transform = 'translateY(60px) translateZ(80px) rotateX(10deg)';
-      setTimeout(() => {
-        heroContent.style.transition = 'opacity 1.2s ease, transform 1.2s cubic-bezier(.2,.8,.2,1)';
-        heroContent.style.opacity = '1';
-        heroContent.style.transform = 'translateY(0) translateZ(80px) rotateX(0)';
-      }, 200);
-    }
-
-    /* ---------- Custom Cursor ---------- */
-    const cursor = document.getElementById('cursor');
-    const cursorTrail = document.getElementById('cursorTrail');
-    if (cursor && window.matchMedia('(pointer: fine)').matches && window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
-      let cursorX = 0, cursorY = 0, trailX = 0, trailY = 0;
-      window.addEventListener('pointermove', e => { cursorX = e.clientX; cursorY = e.clientY; }, { passive: true });
-      window.addEventListener('pointerdown', () => cursor.classList.add('click'));
-      window.addEventListener('pointerup', () => cursor.classList.remove('click'));
-
-      const interactive = document.querySelectorAll('a, button, .btn, .card, .quick a, .metric, .gallery a, .contact-card, .social-grid a, .step, .flip-card, .gallery-item, .gallery-nav');
-      interactive.forEach(el => {
-        el.addEventListener('pointerenter', () => cursor.classList.add('hover'));
-        el.addEventListener('pointerleave', () => cursor.classList.remove('hover'));
-      });
-
-      const animateCursor = () => {
-        cursor.style.left = cursorX + 'px';
-        cursor.style.top = cursorY + 'px';
-        trailX += (cursorX - trailX) * 0.15;
-        trailY += (cursorY - trailY) * 0.15;
-        cursorTrail.style.left = trailX + 'px';
-        cursorTrail.style.top = trailY + 'px';
-        requestAnimationFrame(animateCursor);
-      };
-      animateCursor();
-    }
-
-    /* ---------- Magnetic Buttons ---------- */
-    document.querySelectorAll('.btn, .float a, .nav-pill, .erp-pill, .gallery-nav').forEach(btn => {
-      btn.classList.add('magnetic');
-      btn.addEventListener('pointermove', e => {
-        const rect = btn.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        btn.style.transform = `translate(${x * 0.25}px, ${y * 0.25}px) translateZ(20px)`;
-      });
-      btn.addEventListener('pointerleave', () => { btn.style.transform = ''; });
+        counterObserver.unobserve(el);
+      }
     });
+  }, { threshold: 0.5 });
+  counters.forEach(c => counterObserver.observe(c));
 
-    /* ---------- Ripple Click Effect ---------- */
-    document.querySelectorAll('.btn, .card, .quick a, .metric, .gallery a, .contact-card, .social-grid a, .flip-card-front').forEach(el => {
-      el.style.position = 'relative';
-      el.style.overflow = 'hidden';
-      el.addEventListener('pointerdown', e => {
-        const rect = el.getBoundingClientRect();
-        const ripple = document.createElement('span');
-        ripple.className = 'ripple';
-        const size = Math.max(rect.width, rect.height) * 1.5;
-        ripple.style.width = ripple.style.height = size + 'px';
-        ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
-        ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
-        el.appendChild(ripple);
-        setTimeout(() => ripple.remove(), 600);
-      });
+  /* ---------- 3D Gallery Carousel ---------- */
+  const carousel = document.getElementById('galleryCarousel');
+  if (carousel && window.innerWidth > 980) {
+    const items = [...carousel.querySelectorAll('.gallery-item')];
+    const dotsContainer = document.getElementById('galleryDots');
+    let currentIndex = 0;
+    const total = items.length;
+    const radius = 360;
+
+    items.forEach((item, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', `Go to image ${i + 1}`);
+      dot.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(dot);
     });
+    const dots = [...dotsContainer.querySelectorAll('.gallery-dot')];
 
-    /* ---------- Text Decode Animation with proper spacing ---------- */
-    const decodeText = document.querySelector('.decode-text');
-    if (decodeText && window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
-      const originalText = decodeText.textContent;
-      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&';
-      decodeText.innerHTML = originalText.split('').map((char, i) => {
-        const isSpace = char === ' ';
-        const display = isSpace ? '&nbsp;' : char;
-        return `<span class="decode-char ${isSpace ? 'space' : ''}" data-index="${i}" data-char="${char}">${display}</span>`;
-      }).join('');
-      const decodeChars = decodeText.querySelectorAll('.decode-char');
-      let iteration = 0;
-      const maxIterations = 15;
-      const interval = setInterval(() => {
-        decodeChars.forEach((span, i) => {
-          if (i < iteration * 1.5) {
-            span.innerHTML = span.dataset.char === ' ' ? '&nbsp;' : span.dataset.char;
-            span.classList.add('locked');
-            span.classList.remove('scrambling');
-          } else if (span.dataset.char !== ' ') {
-            span.textContent = chars[Math.floor(Math.random() * chars.length)];
-            span.classList.add('scrambling');
-          }
-        });
-        iteration++;
-        if (iteration > maxIterations) {
-          clearInterval(interval);
-          decodeChars.forEach(span => {
-            span.innerHTML = span.dataset.char === ' ' ? '&nbsp;' : span.dataset.char;
-            span.classList.add('locked');
-            span.classList.remove('scrambling');
-          });
-          setTimeout(() => {
-            decodeText.classList.add('decoded');
-          }, 400);
-        }
-      }, 70);
-    }
-
-    /* ---------- Kinetic Typography for Hero Headline ---------- */
-    const heroHeadline = document.getElementById('heroHeadline');
-    if (heroHeadline && window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
-      const words = heroHeadline.textContent.split(' ');
-      heroHeadline.innerHTML = words.map(word => `<span class="word">${word.split('').map(char => `<span class="char">${char === ' ' ? '&nbsp;' : char}</span>`).join('')}</span>`).join(' ');
-      const headlineChars = heroHeadline.querySelectorAll('.char');
-      headlineChars.forEach(char => {
-        char.addEventListener('pointerenter', () => {
-          char.style.transform = 'translateZ(40px) rotateY(20deg) scale(1.2)';
-          char.style.color = 'var(--neon-cyan)';
-        });
-        char.addEventListener('pointerleave', () => {
-          char.style.transform = '';
-          char.style.color = '';
-        });
-      });
-    }
-
-    /* ---------- Scroll Velocity Skew ---------- */
-    let lastScroll = 0, velocity = 0, skewTarget = 0, currentSkew = 0;
-    const main = document.querySelector('main');
-    if (main && window.matchMedia('(prefers-reduced-motion: no-preference)').matches && window.innerWidth > 620) {
-      main.classList.add('velocity-skew');
-      window.addEventListener('scroll', () => {
-        const current = window.scrollY;
-        velocity = current - lastScroll;
-        lastScroll = current;
-        skewTarget = Math.max(-1.2, Math.min(1.2, velocity * 0.03));
-      }, { passive: true });
-      const animateSkew = () => {
-        currentSkew += (skewTarget - currentSkew) * 0.08;
-        skewTarget *= 0.92;
-        main.style.transform = `skewY(${currentSkew}deg)`;
-        requestAnimationFrame(animateSkew);
-      };
-      animateSkew();
-    }
-
-    /* ---------- Spotlight Effect on Cards ---------- */
-    document.querySelectorAll('.spotlight').forEach(el => {
-      el.addEventListener('pointermove', e => {
-        const rect = el.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-        el.style.setProperty('--mouse-x', x + '%');
-        el.style.setProperty('--mouse-y', y + '%');
-      });
-    });
-
-    /* ---------- Animated Counter ---------- */
-    const counters = document.querySelectorAll('.metric strong');
-    const counterObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const el = entry.target;
-          el.classList.add('counter', 'visible');
-          const original = el.textContent;
-          const target = parseInt(original);
-          if (!isNaN(target)) {
-            let current = 0;
-            const duration = 1500;
-            const step = target / (duration / 16);
-            const countUp = () => {
-              current += step;
-              if (current < target) {
-                el.textContent = Math.ceil(current).toString().padStart(2, '0');
-                requestAnimationFrame(countUp);
-              } else {
-                el.textContent = original;
-              }
-            };
-            countUp();
-          }
-          counterObserver.unobserve(el);
-        }
-      });
-    }, { threshold: 0.5 });
-    counters.forEach(c => counterObserver.observe(c));
-
-    /* ---------- 3D Gallery Carousel ---------- */
-    const carousel = document.getElementById('galleryCarousel');
-    if (carousel && window.innerWidth > 980) {
-      const items = [...carousel.querySelectorAll('.gallery-item')];
-      const dotsContainer = document.getElementById('galleryDots');
-      let currentIndex = 0;
-      const total = items.length;
-      const radius = 360;
-
+    const updateCarousel = () => {
       items.forEach((item, i) => {
-        const dot = document.createElement('button');
-        dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
-        dot.setAttribute('aria-label', `Go to image ${i + 1}`);
-        dot.addEventListener('click', () => goTo(i));
-        dotsContainer.appendChild(dot);
+        const offset = i - currentIndex;
+        const angle = offset * (360 / total);
+        const radians = angle * Math.PI / 180;
+        const x = Math.sin(radians) * radius;
+        const z = Math.cos(radians) * radius - radius;
+        const scale = offset === 0 ? 1.15 : 0.85;
+        const opacity = offset === 0 ? 1 : 0.5;
+        const blur = offset === 0 ? 0 : 2;
+        item.style.transform = `translateX(${x}px) translateZ(${z}px) scale(${scale})`;
+        item.style.opacity = opacity;
+        item.style.filter = `blur(${blur}px)`;
+        item.style.zIndex = offset === 0 ? 10 : 5 - Math.abs(offset);
       });
-      const dots = [...dotsContainer.querySelectorAll('.gallery-dot')];
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
+    };
 
-      const updateCarousel = () => {
-        items.forEach((item, i) => {
-          const offset = i - currentIndex;
-          const angle = offset * (360 / total);
-          const radians = angle * Math.PI / 180;
-          const x = Math.sin(radians) * radius;
-          const z = Math.cos(radians) * radius - radius;
-          const scale = offset === 0 ? 1.15 : 0.85;
-          const opacity = offset === 0 ? 1 : 0.5;
-          const blur = offset === 0 ? 0 : 2;
-          item.style.transform = `translateX(${x}px) translateZ(${z}px) scale(${scale})`;
-          item.style.opacity = opacity;
-          item.style.filter = `blur(${blur}px)`;
-          item.style.zIndex = offset === 0 ? 10 : 5 - Math.abs(offset);
-        });
-        dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
-      };
-
-      const goTo = index => {
-        currentIndex = (index + total) % total;
-        updateCarousel();
-      };
-
-      document.getElementById('galleryPrev').addEventListener('click', () => goTo(currentIndex - 1));
-      document.getElementById('galleryNext').addEventListener('click', () => goTo(currentIndex + 1));
-
-      let autoRotate = setInterval(() => goTo(currentIndex + 1), 4000);
-      carousel.addEventListener('pointerenter', () => clearInterval(autoRotate));
-      carousel.addEventListener('pointerleave', () => autoRotate = setInterval(() => goTo(currentIndex + 1), 4000));
-
+    const goTo = index => {
+      currentIndex = (index + total) % total;
       updateCarousel();
-    }
-  </script>
+    };
+
+    document.getElementById('galleryPrev').addEventListener('click', () => goTo(currentIndex - 1));
+    document.getElementById('galleryNext').addEventListener('click', () => goTo(currentIndex + 1));
+
+    let autoRotate = setInterval(() => goTo(currentIndex + 1), 4000);
+    carousel.addEventListener('pointerenter', () => clearInterval(autoRotate));
+    carousel.addEventListener('pointerleave', () => autoRotate = setInterval(() => goTo(currentIndex + 1), 4000));
+
+    updateCarousel();
+  }
+</script>
 </body>
 </html>
